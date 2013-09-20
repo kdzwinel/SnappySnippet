@@ -1,1 +1,1 @@
-chrome.devtools.panels.create("SnappySnippet", "gfx/icon_24.png", "panel.html", function(panel) {});
+chrome.devtools.panels.create("SnappySnippet", "gfx/devtools-logo.png", "panel.html", function(panel) {});
