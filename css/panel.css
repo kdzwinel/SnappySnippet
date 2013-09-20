@@ -1,0 +1,79 @@
+.container {
+	margin-top: 10px;
+}
+
+.row {
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+#main-button-row {
+	text-align: center;
+}
+
+#textareas-row .label {
+	position: absolute;
+	top: 5px;
+}
+
+#export-buttons-row div:first-child {
+	text-align: right;
+}
+
+#textareas-row textarea {
+	width: 100%;
+	height: 150px;
+	margin-top: 5px;
+}
+
+iframe {
+	display: none;
+}
+
+#loader {
+	visibility: hidden;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	background: rgba(0,0,0,0.5);
+	opacity: 0;
+	-webkit-transition: opacity 0.3s, visibility 0.3s;
+	transition: opacity 0.3s, visibility 0.3s;
+}
+
+#loader .alert {
+	display: none;
+	position: absolute;
+	width: 330px;
+	left: 50%;
+	margin-left: -165px;
+	top: 15%;
+}
+
+#loader.creating, #loader.processing {
+	visibility: visible;
+	opacity: 1;
+	-webkit-transition: opacity 0.3s, visibility 0;
+	transition: opacity 0.3s, visibility 0;
+}
+
+#loader.creating .alert:first-child {
+	display: block;
+}
+
+#loader.processing .alert:last-child {
+	display: block;
+}
+
+#error-box {
+	height: 0;
+	overflow: hidden;
+	-webkit-transition: height 0.3s;
+	transition: height 0.3s;
+}
+
+#error-box.active {
+	height: 100px;
+}

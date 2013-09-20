@@ -1,0 +1,12 @@
+{
+	"name": "SnappySnippet",
+	"description": "Easily extract CSS and HTML from selected element. Then send it to CodePen or jsFiddle with one click.",
+	"version": "0.1",
+	"manifest_version": 2,
+	"minimum_chrome_version": "18.0",
+	"icons": {
+		"24": "gfx/icon_24.png",
+		"128": "gfx/icon_128.png"
+	},
+	"devtools_page": "devtools.html"
+}

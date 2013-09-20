@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap/css/bootstrap.css" rel="stylesheet">
+    <link href="css/css/flat-ui.css" rel="stylesheet">
+    <link href="css/panel.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container">
+    <div class="row" id='main-button-row'>
+        <div class="col-xs-12">
+            <div id='error-box'>
+                <div class='alert alert-danger'><p><span class="fui-cross"></span> <strong>Error!</strong> <span class='error-message'></span></p></div>
+            </div>
+            <button id='create' class='btn btn-primary'><span class='fui-gear'></span> Create a snippet from inspected element</button>
+        </div>
+    </div>
+
+    <div class="row" id='textareas-row'>
+        <div class="col-xs-6">
+            <span class="label label-warning">HTML</span>
+            <textarea id='html' readonly class="form-control input-sm"></textarea>
+        </div>
+        <div class="col-xs-6">
+            <span class="label label-warning">CSS</span>
+            <textarea id='css' readonly class="form-control input-sm"></textarea>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="panel-group col-xs-12" id="accordion">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                            <span class="fui-list"></span> Settings
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseOne" class="panel-collapse collapse">
+                    <div class="accordion-inner">
+                        <ul>
+                            <li><label class="checkbox">
+                                <input type='checkbox' checked="checked" id='properties-clean-up'/> Only general
+                                properties (e.g. keeps "border", but removes "border-width")
+                            </label></li>
+                            <li><label class="checkbox">
+                                <input type='checkbox' checked="checked" id='remove-default-values'/> Remove properties
+                                with default browser values
+                            </label></li>
+                            <li><label class="checkbox">
+                                <input type='checkbox' checked="checked" id='remove-webkit-properties'/> Remove
+                                everything prefixed with "-webkit"
+                            </label></li>
+                            <li><label class="checkbox">
+                                <input type='checkbox' checked="checked" id='combine-same-rules'/> Combine same rules
+                                together
+                            </label></li>
+                            <li><label class="checkbox">
+                                <input type='checkbox' checked="checked" id='fix-html-indentation'/> Format and clean up
+                                HTML
+                            </label></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                            <span class="fui-heart"></span> Get help, give feedback &amp; about
+                        </a>
+                    </h4>
+                </div>
+                <div id="collapseTwo" class="panel-collapse collapse">
+                    Bla bla
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id='export-buttons-row'>
+        <div class="col-xs-6">
+            <form action="http://codepen.io/pen/define" method="POST" target="_blank" id='codepen-form'>
+                <input type="hidden" name="data" value=''/>
+                <button type='submit' class='btn btn-primary'><span class="fui-mail"></span> Send to CodePen</button>
+            </form>
+        </div>
+        <div class="col-xs-6">
+            <form action="http://jsfiddle.net/api/post/library/pure/" method="POST" target="_blank" id='jsfiddle-form'>
+                <input type="hidden" name="html" value=''/>
+                <input type="hidden" name="css" value=''/>
+                <button type='submit' class='btn btn-primary'><span class="fui-mail"></span> Send to jsFiddle</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div id='loader'>
+    <div class='alert alert-warning'><p><span class="fui-time"></span> <strong>Please wait.</strong> Creating a snapshot...</p></div>
+    <div class='alert alert-warning'><p><span class="fui-time"></span> <strong>Please wait.</strong> Processing...</p></div>
+</div>
+
+<script src="css/js/jquery-1.8.3.min.js"></script>
+<script src="css/js/bootstrap.min.js"></script>
+<script src="css/js/flatui-checkbox.js"></script>
+
+<script src='js/libs/jquery.htmlClean.js'></script>
+<script src='js/tools/CSSStringifier.js'></script>
+<script src='js/tools/SameRulesCombiner.js'></script>
+<script src='js/filters/DefaultValueFilter.js'></script>
+<script src='js/filters/ShorthandPropertyFilter.js'></script>
+<script src='js/filters/WebkitPropertiesFilter.js'></script>
+<script src='js/tools/Snapshooter.js'></script>
+<script src='js/panel.js'></script>
+</body>
+</html>
