@@ -1,7 +1,14 @@
 SnappySnippet
 ======================
 
-Chrome/Chromium extension that allows easy CSS+HTML extraction for specific DOM element.
+Chrome/Chromium extension that allows easy CSS+HTML extraction of specific DOM element. Created snippet can be then exported to CodePen or jsFiddle with one click.
+
+Other features:
+- cleans up HTML (removing unnecesary attributes, fixing indentation)
+- optimizes CSS to make it readable
+- fully configurable (all filters can be turned off)
+- nice UI thanks to Bootstrap & Flat-UI projects
+- works with :before and :after pseudo elements
 
 ![Screenshot](https://github.com/kdzwinel/SnappySNippet/blob/master/gfx/screenshots/2.png?raw=true)
 
