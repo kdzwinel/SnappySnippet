@@ -46,9 +46,9 @@ iframe {
 #loader .alert {
 	display: none;
 	position: absolute;
-	width: 330px;
+	width: 350px;
 	left: 50%;
-	margin-left: -165px;
+	margin-left: -175px;
 	top: 15%;
 }
 
@@ -81,3 +81,16 @@ iframe {
 #about ul {
 	margin-top: 10px;
 }
+
+#social-buttons {
+	position: absolute;
+	right: 10px;
+	bottom: 10px;
+	z-index: 10;
+	display: block;
+}
+
+	#social-buttons iframe {
+		margin-top: 3px;
+		display: block;
+	}
