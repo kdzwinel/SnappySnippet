@@ -25,7 +25,7 @@ https://github.com/kdzwinel/SnappySnippet/issues
 Thanks to
 ------
 
-**qntmfred** for inspiration
+[qntmfred](https://github.com/qntmfred) for [inspiration](http://stackoverflow.com/questions/4911338/tools-to-selectively-copy-htmlcssjs-from-existing-sites)
 
 Author
 ------
