@@ -2,11 +2,13 @@
 	"use strict";
 
 	var lastSnapshot,
+
 		cssStringifier = new CSSStringifier(),
 		shorthandPropertyFilter = new ShorthandPropertyFilter(),
 		webkitPropertiesFilter = new WebkitPropertiesFilter(),
 		defaultValueFilter = new DefaultValueFilter(),
 		sameRulesCombiner = new SameRulesCombiner(),
+		borderRadiusWorkaround = new BorderRadiusWorkaround(),
 
 		loader = $('#loader'),
 		createButton = $('#create'),
@@ -101,6 +103,9 @@
 		if(removeDefaultValuesInput.is(':checked')) {
 			styles = defaultValueFilter.process(styles);
 		}
+
+		borderRadiusWorkaround.process(styles);
+
 		if(propertiesCleanUpInput.is(':checked')) {
 			styles = shorthandPropertyFilter.process(styles);
 		}

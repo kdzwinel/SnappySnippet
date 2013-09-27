@@ -29,6 +29,14 @@ If you found a bug or have a feature request, please create an issue here on Git
 
 https://github.com/kdzwinel/SnappySnippet/issues
 
+Changelog
+---------
+
+### 0.3 ###
+
++ JS Bin support (by @remy)
++ temporary workaround for `getComputedStyle` bug in `border-radius` property (issue #4, thanks to @zessx for spotting this)
+
 Thanks to
 ------
 
