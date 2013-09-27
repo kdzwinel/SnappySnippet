@@ -47,8 +47,8 @@
 		var htmlInput = jsbinForm.find('input[name=html]');
 		var cssInput = jsbinForm.find('input[name=css]');
 
-		htmlInput.val(htmlTextarea.val());
-		cssInput.val(cssTextarea.val());
+		htmlInput.val(encodeURIComponent(htmlTextarea.val()));
+		cssInput.val(encodeURIComponent(cssTextarea.val()));
 	});
 
 	propertiesCleanUpInput.on('change', processSnapshot);
