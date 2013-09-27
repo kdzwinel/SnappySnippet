@@ -13,6 +13,7 @@
 
 		codepenForm = $('#codepen-form'),
 		jsfiddleForm = $('#jsfiddle-form'),
+		jsbinForm = $('#jsbin-form'),
 
 		propertiesCleanUpInput = $('#properties-clean-up'),
 		removeDefaultValuesInput = $('#remove-default-values'),
@@ -40,6 +41,14 @@
 
 		htmlInput.val(htmlTextarea.val());
 		cssInput.val(cssTextarea.val());
+	});
+
+	jsbinForm.on('submit', function () {
+		var htmlInput = jsbinForm.find('input[name=html]');
+		var cssInput = jsbinForm.find('input[name=css]');
+
+		htmlInput.val(encodeURIComponent(htmlTextarea.val()));
+		cssInput.val(encodeURIComponent(cssTextarea.val()));
 	});
 
 	propertiesCleanUpInput.on('change', processSnapshot);
