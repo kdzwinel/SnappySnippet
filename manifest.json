@@ -1,6 +1,6 @@
 {
 	"name": "SnappySnippet",
-	"description": "Easily extract CSS and HTML from selected element. Then send it to CodePen, jsFiddle or jsbin with one click.",
+	"description": "Easily extract CSS and HTML from selected element. Then send it to CodePen, jsFiddle or JS Bin with one click.",
 	"version": "0.4",
 	"manifest_version": 2,
 	"minimum_chrome_version": "18.0",
