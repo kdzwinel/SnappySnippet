@@ -10,27 +10,27 @@ function BorderRadiusWorkaround() {
 		return 0;
 	}
 
-	//fixes a bug in getComputedStyle ( https://code.google.com/p/chromium/issues/detail?id=298972 )
+	// Works around a bug in getComputedStyle ( http://crbug.com/298972, fixed in Chrome 32 )
 	function fixBorderRadius(properties) {
 		var borderFirstRadius = [], borderSecondRadius = [];
 
-		borderFirstRadius[0] = getRadius(properties['borderTopLeftRadius'], 0);
-		borderFirstRadius[1] = getRadius(properties['borderTopRightRadius'], 0);
-		borderFirstRadius[2] = getRadius(properties['borderBottomRightRadius'], 0);
-		borderFirstRadius[3] = getRadius(properties['borderBottomLeftRadius'], 0);
+		borderFirstRadius[0] = getRadius(properties['border-top-left-radius'], 0);
+		borderFirstRadius[1] = getRadius(properties['border-top-right-radius'], 0);
+		borderFirstRadius[2] = getRadius(properties['border-bottom-right-radius'], 0);
+		borderFirstRadius[3] = getRadius(properties['border-bottom-left-radius'], 0);
 
-		borderSecondRadius[0] = getRadius(properties['borderTopLeftRadius'], 1);
-		borderSecondRadius[1] = getRadius(properties['borderTopRightRadius'], 1);
-		borderSecondRadius[2] = getRadius(properties['borderBottomRightRadius'], 1);
-		borderSecondRadius[3] = getRadius(properties['borderBottomLeftRadius'], 1);
+		borderSecondRadius[0] = getRadius(properties['border-top-left-radius'], 1);
+		borderSecondRadius[1] = getRadius(properties['border-top-right-radius'], 1);
+		borderSecondRadius[2] = getRadius(properties['border-bottom-right-radius'], 1);
+		borderSecondRadius[3] = getRadius(properties['border-bottom-left-radius'], 1);
 
-		properties['borderRadius'] = borderFirstRadius.join(' ');
+		properties['border-radius'] = borderFirstRadius.join(' ');
 
 		//if borderSecondRadius != [0,0,0,0] then we need to add information about second radius
 		if(!borderSecondRadius.every(function(a){
 			return (a === 0);
 		})) {
-			properties['borderRadius'] += ' / ' + borderSecondRadius.join(' ');
+			properties['border-radius'] += ' / ' + borderSecondRadius.join(' ');
 		}
 	}
 
@@ -40,13 +40,13 @@ function BorderRadiusWorkaround() {
 		for (i = 0; i < styles.length; i++) {
 			var style = styles[i];
 
-			if(style.node.hasOwnProperty('borderRadius')) {
+			if(style.node.hasOwnProperty('border-radius')) {
 				fixBorderRadius(style.node);
 			}
-			if(style.before && style.before.hasOwnProperty('borderRadius')) {
+			if(style.before && style.before.hasOwnProperty('border-radius')) {
 				fixBorderRadius(style.before);
 			}
-			if(style.after && style.after.hasOwnProperty('borderRadius')) {
+			if(style.after && style.after.hasOwnProperty('border-radius')) {
 				fixBorderRadius(style.after);
 			}
 		}

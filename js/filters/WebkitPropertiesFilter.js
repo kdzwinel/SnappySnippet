@@ -6,7 +6,7 @@ function WebkitPropertiesFilter() {
 			output = {};
 
 		for(property in style) {
-			if( style.hasOwnProperty(property) && property.indexOf("webkit") === -1 ) {
+			if( style.hasOwnProperty(property) && !/^-webkit-/.test(property) ) {
 				output[property] = style[property];
 			}
 		}
