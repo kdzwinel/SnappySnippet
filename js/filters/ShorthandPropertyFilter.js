@@ -1,37 +1,44 @@
 function ShorthandPropertyFilter() {
 	"use strict";
 
+	function keySet(array) {
+		var i, obj = {};
+		for (i=0; i<array.length; i++)
+			obj[array[i]] = true;
+		return obj;
+	}
+
 	function keepOnlyShorthandProperties(style) {
 		var property,
 			output={},
-			blacklist = [
-				"backgroundPosition","backgroundColor","backgroundImage","backgroundPositionX","backgroundPositionY","backgroundRepeat",
-				"backgroundClip","backgroundOrigin","backgroundRepeatX","backgroundRepeatY",
-				"marginLeft","marginRight","marginTop","marginBottom",
-				"paddingLeft","paddingRight","paddingTop","paddingBottom",
-				"borderLeft","borderRight","borderTop","borderBottom",
-				"borderImageOutset","borderImageRepeat","borderImageSlice","borderImageSource","borderImageWidth",
-				"borderBottomLeftRadius","borderBottomRightRadius","borderTopLeftRadius","borderTopRightRadius",
-				"borderLeftColor","borderRightColor","borderTopColor","borderBottomColor",
-				"borderLeftStyle","borderRightStyle","borderTopStyle","borderBottomStyle",
-				"borderLeftWidth","borderRightWidth","borderTopWidth","borderBottomWidth",
-				"borderColor","borderWidth","borderStyle",
-				"outlineColor","outlineOffset","outlineStyle","outlineWidth",
-				"overflowX","overflowY",
-				"fontFamily", "fontSize", "fontStreach", "fontVariant", "fontWeight",
-				"listStyleType","listStyleImage","listStylePosition",
-				"transitionDelay","transitionProperty","transitionDuration","transitionTimingFunction",
-				"webkitBorderAfter","webkitBorderAfterColor","webkitBorderBefore","webkitBorderBeforeColor","webkitBorderEnd","webkitBorderEndColor","webkitBorderStart","webkitBorderStartColor",
-				"webkitBorderAfterWidth","webkitBorderAfterStyle","webkitBorderBeforeWidth","webkitBorderBeforeStyle","webkitBorderEndWidth","webkitBorderEndStyle","webkitBorderStartWidth","webkitBorderStartStyle",
-				"webkitLogicalHeight","webkitLogicalWidth",
-				"webkitMinLogicalHeight","webkitMinLogicalWidth","webkitMaxLogicalHeight","webkitMaxLogicalWidth",
-				"webkitColumnRuleColor",
-				"webkitPaddingBefore","webkitPaddingAfter","webkitPaddingStart","webkitPaddingEnd",
-				"webkitMarginBefore","webkitMarginAfter","webkitMarginStart","webkitMarginEnd"
-			];
+			blacklist = keySet([
+				"background-position","background-color","background-image","background-position-x","background-position-y","background-repeat",
+				"background-clip","background-origin","background-repeat-x","background-repeat-y",
+				"margin-left","margin-right","margin-top","margin-bottom",
+				"padding-left","padding-right","padding-top","padding-bottom",
+				"border-left","border-right","border-top","border-bottom",
+				"border-image-outset","border-image-repeat","border-image-slice","border-image-source","border-image-width",
+				"border-bottom-left-radius","border-bottom-right-radius","border-top-left-radius","border-top-right-radius",
+				"border-left-color","border-right-color","border-top-color","border-bottom-color",
+				"border-left-style","border-right-style","border-top-style","border-bottom-style",
+				"border-left-width","border-right-width","border-top-width","border-bottom-width",
+				"border-color","border-width","border-style",
+				"outline-color","outline-offset","outline-style","outline-width",
+				"overflow-x","overflow-y",
+				"font-family", "font-size", "font-stretch", "font-variant", "font-weight",
+				"list-style-type","list-style-image","list-style-position",
+				"transition-delay","transition-property","transition-duration","transition-timing-function",
+				"-webkit-border-after","-webkit-border-after-color","-webkit-border-before","-webkit-border-before-color","-webkit-border-end","-webkit-border-end-color","-webkit-border-start","-webkit-border-start-color",
+				"-webkit-border-after-width","-webkit-border-after-style","-webkit-border-before-width","-webkit-border-before-style","-webkit-border-end-width","-webkit-border-end-style","-webkit-border-start-width","-webkit-border-start-style",
+				"-webkit-logical-height","-webkit-logical-width",
+				"-webkit-min-logical-height","-webkit-min-logical-width","-webkit-max-logical-height","-webkit-max-logical-width",
+				"-webkit-column-rule-color",
+				"-webkit-padding-before","-webkit-padding-after","-webkit-padding-start","-webkit-padding-end",
+				"-webkit-margin-before","-webkit-margin-after","-webkit-margin-start","-webkit-margin-end"
+			]);
 
 		for(property in style) {
-			if( style.hasOwnProperty(property) && blacklist.indexOf(property) === -1 ) {
+			if( style.hasOwnProperty(property) && !blacklist.hasOwnProperty(property) ) {
 				output[property] = style[property];
 			}
 		}

@@ -15,17 +15,15 @@ function Snapshooter(root) {
 	 * @returns {}
 	 */
 	function styleDeclarationToSimpleObject(style) {
-		var property,
+		var i, l,
 			output = {};
 
-		for(property in style) {
-
-			if( !style.hasOwnProperty(property) || !isNaN(parseInt(property)) || property === 'cssText' || property === 'length' ) {
-				continue;
-			}
-
-			output[property] = style[property];
+		for(i=0, l=style.length; i<l; i++) {
+			output[style[i]] = style[style[i]];
 		}
+
+		// Work around http://crbug.com/313670 (the "content" property is not present as a computed style indexed property value).
+		output.content = style.content;
 
 		return output;
 	}

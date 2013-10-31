@@ -1,32 +1,13 @@
 function CSSStringifier() {
 	"use strict";
 
-	function camelCaseToDashes(property) {
-		var i, l,
-			output = "";
-
-		if (property.substr(0, 6) === 'webkit') {
-			output += "-";
-		}
-
-		for (i = 0, l = property.length; i < l; i++) {
-			if (property[i] >= 'A' && property[i] <= 'Z') {
-				output += '-';
-			}
-
-			output += property[i].toLowerCase();
-		}
-
-		return output;
-	}
-
 	function propertiesToString(properties) {
 		var property,
 			output = "";
 
 		for (property in properties) {
 			if (properties.hasOwnProperty(property)) {
-				output += "    " + camelCaseToDashes(property) + ": " + properties[property] + ";\n";
+				output += "    " + property + ": " + properties[property] + ";\n";
 			}
 		}
 
@@ -75,7 +56,7 @@ function CSSStringifier() {
 			if (style.before) {
 				output += printIDs(style.id, ':before') + ' {\n';
 				output += propertiesToString(style.before);
-				output += '}/*' + printIDs(style.id, ':after') + '*/\n\n';
+				output += '}/*' + printIDs(style.id, ':before') + '*/\n\n';
 			}
 		}
 
