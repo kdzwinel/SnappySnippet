@@ -48,34 +48,70 @@ function Snapshooter(root) {
 		return styleDeclarationToSimpleObject(styles);
 	}
 
+	function cssObjectForElement(element, omitPseudoElements) {
+		return {
+			id: createID(element),
+			tagName: element.tagName,
+			node: dumpCSS(element, null),
+			before: omitPseudoElements ? null : dumpCSS(element, ':before'),
+			after: omitPseudoElements ? null : dumpCSS(element, ':after')
+		};
+	}
+
+	function ancestorTagHTML(element, closingTag) {
+		var i, attr, value, idSeen,
+			result, attributes;
+		if (closingTag)
+			return '</' + element.tagName + '>';
+
+		result = '<' + element.tagName;
+		attributes = element.attributes;
+		for(i = 0; i < attributes.length; ++i) {
+			attr = attributes[i];
+			if (attr.name.toLowerCase() === 'id') {
+				value =	createID(element);
+				idSeen = true;
+			} else {
+				value = attr.value;
+			}
+			result += ' ' + attributes[i].name + '="' + value + '"';
+		}
+		if (!idSeen)
+			result += ' id="' + createID(element) + '"';
+		result += '>';
+		return result;
+	}
+
 	function init() {
 		var css = [],
+			ancestorCss = [],
 			descendants,
 			descendant,
+			htmlSegments,
+			leadingAncestorHtml,
+			trailingAncestorHtml,
+			reverseAncestors = [],
 			i,l,
+			parent,
 			clone;
 
-		// First we go through all nodes and dump all CSS
 		descendants = root.getElementsByTagName('*');
 
-		css.push({
-			id: createID(root),
-			tagName: root.tagName,
-			node: dumpCSS(root, null),
-			before: dumpCSS(root, ':before'),
-			after: dumpCSS(root, ':after')
-		});
+		parent = root.parentElement;
+		while(parent && parent !== document.body) {
+			reverseAncestors.push(parent);
+			parent = parent.parentElement;
+		}
+
+		// First we go through all nodes and dump all CSS
+		css.push(cssObjectForElement(root));
 
 		for(i=0, l=descendants.length; i<l; i++) {
-			descendant = descendants[i];
+			css.push(cssObjectForElement(descendants[i]));
+		}
 
-			css.push({
-				id: createID(descendant),
-				tagName: descendant.tagName,
-				node: dumpCSS(descendant, null),
-				before: dumpCSS(descendant, ':before'),
-				after: dumpCSS(descendant, ':after')
-			});
+		for(i=reverseAncestors.length-1; i>=0; i--) {
+			ancestorCss.push(cssObjectForElement(reverseAncestors[i], true));
 		}
 
 		// Next we dump all HTML and update IDs
@@ -88,13 +124,28 @@ function Snapshooter(root) {
 
 		for(i=0, l=descendants.length; i<l; i++) {
 			descendant = descendants[i];
-
 			descendant.setAttribute('id', createID(descendant));
 		}
 
+		// Build leading and trailing HTML for ancestors
+		htmlSegments = [];
+		for(i=reverseAncestors.length-1; i>=0; i--) {
+			htmlSegments.push(ancestorTagHTML(reverseAncestors[i]));
+		}
+		leadingAncestorHtml = htmlSegments.join('');
+
+		htmlSegments = [];
+		for(i=0, l=reverseAncestors.length; i<l; i++) {
+			htmlSegments.push(ancestorTagHTML(reverseAncestors[i], true));
+		}
+		trailingAncestorHtml = htmlSegments.join('');
+
 		return JSON.stringify({
 			html: clone.outerHTML,
-			css: css
+			leadingAncestorHtml: leadingAncestorHtml,
+			trailingAncestorHtml: trailingAncestorHtml,
+			css: css,
+			ancestorCss: ancestorCss
 		});
 	}
 
