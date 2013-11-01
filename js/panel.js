@@ -72,11 +72,65 @@
 		$(this).checkbox();
 	});
 
+	function findTargetFrameURL(callback) {
+		chrome.devtools.inspectedWindow.eval("(" + inThisFrame.toString() + ")($0)", function (result) {
+			if (result) {
+				callback(null);
+				return;
+			}
+
+			chrome.devtools.inspectedWindow.getResources(resourcesCallback);
+		});
+
+		function resourcesCallback(resources) {
+			var i, currentURL,
+				resourcesLeft = resources.length,
+				targetURL = null;
+			for (i=0; i<resources.length; i++) {
+				currentURL = resources[i].url;
+				// Check if an iframe with given URL exists.
+				chrome.devtools.inspectedWindow.eval("(" + isValidIframeSrc.toString() + ")('" + currentURL + "')", function(url, result) {
+					if (!result) {
+						stepCompleted();
+						return;
+					}
+
+					// Now check if the current node belongs in the iframe.
+					chrome.devtools.inspectedWindow.eval("(" + inThisFrame.toString() + ")($0)", {frameURL: url}, function(url, result) {
+						if (result)
+							targetURL = url;
+						stepCompleted();
+					}.bind(this, url));
+				}.bind(this, currentURL));
+			}
+
+			function stepCompleted() {
+				if (!--resourcesLeft)
+					callback(targetURL);
+			}
+		}
+
+		function inThisFrame(node) {
+			return node ? true : false;
+		}
+
+		function isValidIframeSrc(url) {
+			return !!document.querySelector("iframe[src='" + url + "']");
+		}
+	}
+
 	function makeSnapshot() {
 		loader.addClass('creating');
 		errorBox.removeClass('active');
 
-		chrome.devtools.inspectedWindow.eval("(" + Snapshooter.toString() + ")($0)", function (result) {
+		findTargetFrameURL(function(url) {
+			if (url)
+				chrome.devtools.inspectedWindow.eval("(" + Snapshooter.toString() + ")($0)", {frameURL: url}, callback);
+			else
+				chrome.devtools.inspectedWindow.eval("(" + Snapshooter.toString() + ")($0)", callback);
+		});
+
+		function callback(result) {
 			try {
 				lastSnapshot = JSON.parse(result);
 			} catch (e) {
@@ -87,7 +141,7 @@
 			processSnapshot();
 
 			loader.removeClass('creating');
-		});
+		}
 	}
 
 	function processSnapshot() {
@@ -118,7 +172,7 @@
 
 		if(fixHTMLIndentationInput.is(':checked')) {
 			html = $.htmlClean(html, {
-				removeTags: ['class'],
+				removeAttrs: ['class'],
 				allowedAttributes: [['id']],
 				format: true,
 				replace: [],
