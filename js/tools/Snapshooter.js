@@ -61,24 +61,33 @@ function Snapshooter(root) {
 	function ancestorTagHTML(element, closingTag) {
 		var i, attr, value, idSeen,
 			result, attributes;
-		if (closingTag)
+
+		if (closingTag) {
 			return '</' + element.tagName + '>';
+		}
 
 		result = '<' + element.tagName;
 		attributes = element.attributes;
+
 		for(i = 0; i < attributes.length; ++i) {
 			attr = attributes[i];
+
 			if (attr.name.toLowerCase() === 'id') {
-				value =	createID(element);
+				value = createID(element);
 				idSeen = true;
 			} else {
 				value = attr.value;
 			}
+
 			result += ' ' + attributes[i].name + '="' + value + '"';
 		}
-		if (!idSeen)
+
+		if (!idSeen) {
 			result += ' id="' + createID(element) + '"';
+		}
+
 		result += '>';
+
 		return result;
 	}
 

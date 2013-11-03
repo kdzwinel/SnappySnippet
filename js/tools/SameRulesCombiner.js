@@ -1,3 +1,16 @@
+/**
+ * Utility that combines together rules with exact same properties and values.
+ *
+ * e.g
+ * #A1 {color: red}, #SPAN3 {color: red}
+ * ->
+ * #A1, #SPAN3 {color: red}
+ *
+ * TODO Currently, code requires that :after and :before are also equal when comparing two elements. This restriction should be
+ * removed.
+ *
+ * @constructor
+ */
 function SameRulesCombiner() {
 	"use strict";
 

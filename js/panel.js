@@ -29,6 +29,10 @@
 
 		errorBox = $('#error-box');
 
+	/*
+	SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
+	*/
+
 	codepenForm.on('submit', function () {
 		var dataInput = codepenForm.find('input[name=data]');
 
@@ -100,8 +104,8 @@
 			html = lastSnapshot.html;
 
 		if (includeAncestors.is(':checked')) {
-		  styles = lastSnapshot.ancestorCss.concat(styles);
-		  html = lastSnapshot.leadingAncestorHtml + html + lastSnapshot.trailingAncestorHtml;
+			styles = lastSnapshot.ancestorCss.concat(styles);
+			html = lastSnapshot.leadingAncestorHtml + html + lastSnapshot.trailingAncestorHtml;
 		}
 
 		loader.addClass('processing');

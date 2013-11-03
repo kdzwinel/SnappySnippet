@@ -1,3 +1,8 @@
+/**
+ * Filter that removes all properties that use default browser values.
+ *
+ * @constructor
+ */
 function DefaultValueFilter() {
 	"use strict";
 	var iframe;

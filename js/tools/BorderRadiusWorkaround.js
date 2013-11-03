@@ -1,3 +1,8 @@
+/**
+ * Utility that works around a border-radius bug in getComputedStyle ( http://crbug.com/298972, fixed in Chrome 32 )
+ *
+ * @constructor
+ */
 function BorderRadiusWorkaround() {
 	"use strict";
 
@@ -10,7 +15,6 @@ function BorderRadiusWorkaround() {
 		return 0;
 	}
 
-	// Works around a bug in getComputedStyle ( http://crbug.com/298972, fixed in Chrome 32 )
 	function fixBorderRadius(properties) {
 		var borderFirstRadius = [], borderSecondRadius = [];
 

@@ -1,13 +1,18 @@
+/**
+ * Utility that transforms object representing CSS rules to actual CSS code.
+ *
+ * @constructor
+ */
 function CSSStringifier() {
 	"use strict";
 
 	function propertiesToString(properties) {
-		var property,
+		var propertyName,
 			output = "";
 
-		for (property in properties) {
-			if (properties.hasOwnProperty(property)) {
-				output += "    " + property + ": " + properties[property] + ";\n";
+		for (propertyName in properties) {
+			if (properties.hasOwnProperty(propertyName)) {
+				output += "    " + propertyName + ": " + properties[propertyName] + ";\n";
 			}
 		}
 
