@@ -63,6 +63,7 @@
 	removeWebkitPropertiesInput.on('change', processSnapshot);
 	fixHTMLIndentationInput.on('change', processSnapshot);
 	combineSameRulesInput.on('change', processSnapshot);
+	includeAncestors.on('change', processSnapshot);
 
 	createButton.on('click', makeSnapshot);
 
