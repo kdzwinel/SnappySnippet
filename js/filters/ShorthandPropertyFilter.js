@@ -10,45 +10,72 @@
 function ShorthandPropertyFilter() {
 	"use strict";
 
-	var blacklist = keySet([
-		"background-position", "background-color", "background-image", "background-position-x", "background-position-y", "background-repeat",
-		"background-clip", "background-origin", "background-repeat-x", "background-repeat-y",
-		"margin-left", "margin-right", "margin-top", "margin-bottom",
-		"padding-left", "padding-right", "padding-top", "padding-bottom",
-		"border-left", "border-right", "border-top", "border-bottom",
-		"border-image-outset", "border-image-repeat", "border-image-slice", "border-image-source", "border-image-width",
-		"border-bottom-left-radius", "border-bottom-right-radius", "border-top-left-radius", "border-top-right-radius",
-		"border-left-color", "border-right-color", "border-top-color", "border-bottom-color",
-		"border-left-style", "border-right-style", "border-top-style", "border-bottom-style",
-		"border-left-width", "border-right-width", "border-top-width", "border-bottom-width",
-		"border-color", "border-width", "border-style",
-		"outline-color", "outline-offset", "outline-style", "outline-width",
-		"overflow-x", "overflow-y",
-		"font-family", "font-size", "font-stretch", "font-variant", "font-weight",
-		"list-style-type", "list-style-image", "list-style-position",
-		"transition-delay", "transition-property", "transition-duration", "transition-timing-function",
-		"-webkit-border-after", "-webkit-border-after-color", "-webkit-border-before", "-webkit-border-before-color", "-webkit-border-end", "-webkit-border-end-color", "-webkit-border-start", "-webkit-border-start-color",
-		"-webkit-border-after-width", "-webkit-border-after-style", "-webkit-border-before-width", "-webkit-border-before-style", "-webkit-border-end-width", "-webkit-border-end-style", "-webkit-border-start-width", "-webkit-border-start-style",
-		"-webkit-logical-height", "-webkit-logical-width",
-		"-webkit-min-logical-height", "-webkit-min-logical-width", "-webkit-max-logical-height", "-webkit-max-logical-width",
-		"-webkit-column-rule-color",
-		"-webkit-padding-before", "-webkit-padding-after", "-webkit-padding-start", "-webkit-padding-end",
-		"-webkit-margin-before", "-webkit-margin-after", "-webkit-margin-start", "-webkit-margin-end"
-	]);
-
-	function keySet(array) {
-		var i, l, obj = {};
-
-		for (i = 0, l = array.length; i < l; i++) {
-			obj[array[i]] = true;
-		}
-
-		return obj;
-	}
+	var shorthands = {
+		"animation": ["animation-name", "animation-duration", "animation-timing-function", "animation-delay", "animation-iteration-count", "animation-direction", "animation-fill-mode", "animation-play-state"],
+		"background": ["background-image", "bakcground-position", "background-position-x", "background-position-y", "background-size", "background-repeat", "background-repeat-x", "background-repeat-y", "background-attachment", "background-origin", "background-clip", "background-color"],
+//		"background-position": ["background-position-x", "background-position-y"],
+//		"background-repeat": ["background-repeat-x", "background-repeat-y"],
+		"border": ["border-left", "border-right", "border-bottom", "border-top", "border-color", "border-style", "border-width", "border-top-color", "border-top-style", "border-top-width", "border-right-color", "border-right-style", "border-right-width", "border-bottom-color", "border-bottom-style", "border-bottom-width", "border-left-color", "border-left-style", "border-left-width"],
+		"border-bottom": ["border-bottom-width", "border-bottom-style", "border-bottom-color"],
+//		"border-color": ["border-top-color", "border-right-color", "border-bottom-color", "border-left-color"],
+//		"border-image": ["border-image-source", "border-image-slice", "border-image-width", "border-image-outset", "border-image-repeat"],
+		"border-left": ["border-left-width", "border-left-style", "border-left-color"],
+		"border-radius": ["border-top-left-radius", "border-top-right-radius", "border-bottom-right-radius", "border-bottom-left-radius"],
+		"border-right": ["border-right-width", "border-right-style", "border-right-color"],
+//		"border-spacing": ["-webkit-border-horizontal-spacing", "-webkit-border-vertical-spacing"],
+//		"border-style": ["border-top-style", "border-right-style", "border-bottom-style", "border-left-style"],
+		"border-top": ["border-top-width", "border-top-style", "border-top-color"],
+//		"border-width": ["border-top-width", "border-right-width", "border-bottom-width", "border-left-width"],
+		"flex": ["flex-grow", "flex-shrink", "flex-basis"],
+		"flex-flow": ["flex-direction", "flex-wrap"],
+		"font": ["font-family", "font-size", "font-style", "font-variant", "font-weight", "line-height"],
+		"grid-area": ["grid-row-start", "grid-column-start", "grid-row-end", "grid-column-end"],
+		"grid-column": ["grid-column-start", "grid-column-end"],
+		"grid-row": ["grid-row-start", "grid-row-end"],
+//		"height": ["min-height", "max-height"],
+		"list-style": ["list-style-type", "list-style-position", "list-style-image"],
+		"margin": ["margin-top", "margin-right", "margin-bottom", "margin-left"],
+		"marker": ["marker-start", "marker-mid", "marker-end"],
+		"outline": ["outline-color", "outline-style", "outline-width"],
+		"overflow": ["overflow-x", "overflow-y"],
+		"padding": ["padding-top", "padding-right", "padding-bottom", "padding-left"],
+		"text-decoration": ["text-decoration-line", "text-decoration-style", "text-decoration-color"],
+		"transition": ["transition-property", "transition-duration", "transition-timing-function", "transition-delay"],
+//		"-webkit-animation": ["-webkit-animation-name", "-webkit-animation-duration", "-webkit-animation-timing-function", "-webkit-animation-delay", "-webkit-animation-iteration-count", "-webkit-animation-direction", "-webkit-animation-fill-mode", "-webkit-animation-play-state"],
+		"-webkit-border-after": ["-webkit-border-after-width", "-webkit-border-after-style", "-webkit-border-after-color"],
+		"-webkit-border-before": ["-webkit-border-before-width", "-webkit-border-before-style", "-webkit-border-before-color"],
+		"-webkit-border-end": ["-webkit-border-end-width", "-webkit-border-end-style", "-webkit-border-end-color"],
+		"-webkit-border-start": ["-webkit-border-start-width", "-webkit-border-start-style", "-webkit-border-start-color"],
+//		"-webkit-border-radius": ["border-top-left-radius", "border-top-right-radius", "border-bottom-right-radius", "border-bottom-left-radius"],
+		"-webkit-columns": ["-webkit-column-width", "-webkit-column-count"],
+		"-webkit-column-rule": ["-webkit-column-rule-width", "-webkit-column-rule-style", "-webkit-column-rule-color"],
+		"-webkit-margin-collapse": ["-webkit-margin-before-collapse", "-webkit-margin-after-collapse"],
+		"-webkit-mask": ["-webkit-mask-image", "-webkit-mask-position-x", "-webkit-mask-position-y", "-webkit-mask-size", "-webkit-mask-repeat-x", "-webkit-mask-repeat-y", "-webkit-mask-origin", "-webkit-mask-clip"],
+		"-webkit-mask-position": ["-webkit-mask-position-x", "-webkit-mask-position-y"],
+		"-webkit-mask-repeat": ["-webkit-mask-repeat-x", "-webkit-mask-repeat-y"],
+		"-webkit-text-emphasis": ["-webkit-text-emphasis-style", "-webkit-text-emphasis-color"],
+		"-webkit-text-stroke": ["-webkit-text-stroke-width", "-webkit-text-stroke-color"],
+		"-webkit-transition": ["-webkit-transition-property", "-webkit-transition-duration", "-webkit-transition-timing-function", "-webkit-transition-delay"],
+		"-webkit-transform-origin": ["-webkit-transform-origin-x", "-webkit-transform-origin-y", "-webkit-transform-origin-z"],
+	};
 
 	function keepOnlyShorthandProperties(style) {
 		var property,
-			output = {};
+			output = {},
+			shorthand,
+			longhands,
+			blacklist = {},
+			i, l;
+
+		for (shorthand in shorthands) {
+			if (style.hasOwnProperty(shorthand) && style[shorthand]) {
+				longhands = shorthands[shorthand];
+
+				for (i = 0, l = longhands.length; i < l; i++) {
+					blacklist[longhands[i]] = true;
+				}
+			}
+		}
 
 		for (property in style) {
 			if (style.hasOwnProperty(property) && !blacklist.hasOwnProperty(property)) {
