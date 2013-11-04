@@ -11,8 +11,8 @@ function WebkitPropertiesFilter() {
 		var property,
 			output = {};
 
-		for(property in style) {
-			if( style.hasOwnProperty(property) && !webkitRegex.test(property) ) {
+		for (property in style) {
+			if (style.hasOwnProperty(property) && !webkitRegex.test(property)) {
 				output[property] = style[property];
 			}
 		}
@@ -20,7 +20,7 @@ function WebkitPropertiesFilter() {
 		return output;
 	}
 
-	this.process = function(styles) {
+	this.process = function (styles) {
 		var i, l,
 			style,
 			output = [];

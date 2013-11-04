@@ -30,8 +30,8 @@
 		errorBox = $('#error-box');
 
 	/*
-	SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
-	*/
+	 SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
+	 */
 
 	codepenForm.on('submit', function () {
 		var dataInput = codepenForm.find('input[name=data]');
@@ -67,10 +67,10 @@
 
 	createButton.on('click', makeSnapshot);
 
-	htmlTextarea.on('click', function() {
+	htmlTextarea.on('click', function () {
 		$(this).select();
 	});
-	cssTextarea.on('click', function() {
+	cssTextarea.on('click', function () {
 		$(this).select();
 	});
 
@@ -97,7 +97,7 @@
 	}
 
 	function processSnapshot() {
-		if(!lastSnapshot) {
+		if (!lastSnapshot) {
 			return;
 		}
 
@@ -111,26 +111,28 @@
 
 		loader.addClass('processing');
 
-		if(removeDefaultValuesInput.is(':checked')) {
+		if (removeDefaultValuesInput.is(':checked')) {
 			styles = defaultValueFilter.process(styles);
 		}
 
 		borderRadiusWorkaround.process(styles);
 
-		if(propertiesCleanUpInput.is(':checked')) {
+		if (propertiesCleanUpInput.is(':checked')) {
 			styles = shorthandPropertyFilter.process(styles);
 		}
-		if(removeWebkitPropertiesInput.is(':checked')) {
+		if (removeWebkitPropertiesInput.is(':checked')) {
 			styles = webkitPropertiesFilter.process(styles);
 		}
-		if(combineSameRulesInput.is(':checked')) {
+		if (combineSameRulesInput.is(':checked')) {
 			styles = sameRulesCombiner.process(styles);
 		}
 
-		if(fixHTMLIndentationInput.is(':checked')) {
+		if (fixHTMLIndentationInput.is(':checked')) {
 			html = $.htmlClean(html, {
 				removeTags: ['class'],
-				allowedAttributes: [['id']],
+				allowedAttributes: [
+					['id']
+				],
 				format: true,
 				replace: [],
 				replaceStyles: [],

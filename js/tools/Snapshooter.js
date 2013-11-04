@@ -63,7 +63,7 @@ function Snapshooter(root) {
 		var i, l, cssName, camelCaseName,
 			output = {};
 
-		for(i=0, l=style.length; i<l; i++) {
+		for (i = 0, l = style.length; i < l; i++) {
 			output[style[i]] = style[style[i]];
 		}
 
@@ -71,8 +71,8 @@ function Snapshooter(root) {
 		output.content = style.content;
 
 		// Since shorthand properties are not available in the indexed array, copy them from named properties
-		for(cssName in shorthandProperties) {
-			if(shorthandProperties.hasOwnProperty(cssName)) {
+		for (cssName in shorthandProperties) {
+			if (shorthandProperties.hasOwnProperty(cssName)) {
 				camelCaseName = shorthandProperties[cssName];
 				output[cssName] = style[camelCaseName];
 			}
@@ -90,10 +90,10 @@ function Snapshooter(root) {
 
 		styles = node.ownerDocument.defaultView.getComputedStyle(node, pseudoElement);
 
-		if(pseudoElement) {
+		if (pseudoElement) {
 			//if we are dealing with pseudoelement, check if 'content' property isn't empty
 			//if it is, then we can ignore the whole element
-			if(!styles.getPropertyValue('content')) {
+			if (!styles.getPropertyValue('content')) {
 				return null;
 			}
 		}
@@ -122,7 +122,7 @@ function Snapshooter(root) {
 		result = '<' + element.tagName;
 		attributes = element.attributes;
 
-		for(i = 0; i < attributes.length; ++i) {
+		for (i = 0; i < attributes.length; ++i) {
 			attr = attributes[i];
 
 			if (attr.name.toLowerCase() === 'id') {
@@ -153,14 +153,14 @@ function Snapshooter(root) {
 			leadingAncestorHtml,
 			trailingAncestorHtml,
 			reverseAncestors = [],
-			i,l,
+			i, l,
 			parent,
 			clone;
 
 		descendants = root.getElementsByTagName('*');
 
 		parent = root.parentElement;
-		while(parent && parent !== document.body) {
+		while (parent && parent !== document.body) {
 			reverseAncestors.push(parent);
 			parent = parent.parentElement;
 		}
@@ -168,11 +168,11 @@ function Snapshooter(root) {
 		// First we go through all nodes and dump all CSS
 		css.push(cssObjectForElement(root));
 
-		for(i=0, l=descendants.length; i<l; i++) {
+		for (i = 0, l = descendants.length; i < l; i++) {
 			css.push(cssObjectForElement(descendants[i]));
 		}
 
-		for(i=reverseAncestors.length-1; i>=0; i--) {
+		for (i = reverseAncestors.length - 1; i >= 0; i--) {
 			ancestorCss.push(cssObjectForElement(reverseAncestors[i], true));
 		}
 
@@ -184,20 +184,20 @@ function Snapshooter(root) {
 
 		clone.setAttribute('id', createID(clone));
 
-		for(i=0, l=descendants.length; i<l; i++) {
+		for (i = 0, l = descendants.length; i < l; i++) {
 			descendant = descendants[i];
 			descendant.setAttribute('id', createID(descendant));
 		}
 
 		// Build leading and trailing HTML for ancestors
 		htmlSegments = [];
-		for(i=reverseAncestors.length-1; i>=0; i--) {
+		for (i = reverseAncestors.length - 1; i >= 0; i--) {
 			htmlSegments.push(ancestorTagHTML(reverseAncestors[i]));
 		}
 		leadingAncestorHtml = htmlSegments.join('');
 
 		htmlSegments = [];
-		for(i=0, l=reverseAncestors.length; i<l; i++) {
+		for (i = 0, l = reverseAncestors.length; i < l; i++) {
 			htmlSegments.push(ancestorTagHTML(reverseAncestors[i], true));
 		}
 		trailingAncestorHtml = htmlSegments.join('');

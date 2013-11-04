@@ -18,7 +18,7 @@ function SameRulesCombiner() {
 		return JSON.stringify(rulesA) === JSON.stringify(rulesB);
 	}
 
-	this.process = function(styles) {
+	this.process = function (styles) {
 		var i, j,
 			stylesA, stylesB,
 			ids,
@@ -28,15 +28,15 @@ function SameRulesCombiner() {
 			stylesA = styles[i];
 			ids = [stylesA.id];
 
-			for (j = i+1; j < styles.length; j++) {
+			for (j = i + 1; j < styles.length; j++) {
 				stylesB = styles[j];
 
-				if(compareRules(stylesA.node, stylesB.node) &&
+				if (compareRules(stylesA.node, stylesB.node) &&
 					compareRules(stylesA.after, stylesB.after) &&
 					compareRules(stylesA.before, stylesB.before)) {
 
 					ids.push(stylesB.id);
-					styles.splice(j,1);
+					styles.splice(j, 1);
 				}
 			}
 

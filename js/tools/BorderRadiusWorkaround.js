@@ -7,7 +7,7 @@ function BorderRadiusWorkaround() {
 	"use strict";
 
 	function getRadius(value, idx) {
-		if(value) {
+		if (value) {
 			value = value.split(' ');
 			return value[idx] || 0;
 		}
@@ -31,26 +31,26 @@ function BorderRadiusWorkaround() {
 		properties['border-radius'] = borderFirstRadius.join(' ');
 
 		//if borderSecondRadius != [0,0,0,0] then we need to add information about second radius
-		if(!borderSecondRadius.every(function(a){
+		if (!borderSecondRadius.every(function (a) {
 			return (a === 0);
 		})) {
 			properties['border-radius'] += ' / ' + borderSecondRadius.join(' ');
 		}
 	}
 
-	this.process = function(styles) {
+	this.process = function (styles) {
 		var i;
 
 		for (i = 0; i < styles.length; i++) {
 			var style = styles[i];
 
-			if(style.node.hasOwnProperty('border-radius')) {
+			if (style.node.hasOwnProperty('border-radius')) {
 				fixBorderRadius(style.node);
 			}
-			if(style.before && style.before.hasOwnProperty('border-radius')) {
+			if (style.before && style.before.hasOwnProperty('border-radius')) {
 				fixBorderRadius(style.before);
 			}
-			if(style.after && style.after.hasOwnProperty('border-radius')) {
+			if (style.after && style.after.hasOwnProperty('border-radius')) {
 				fixBorderRadius(style.after);
 			}
 		}

@@ -11,6 +11,7 @@ function DefaultValueFilter() {
 		iframe = document.createElement('iframe');
 		document.body.appendChild(iframe);
 	}
+
 	init();
 
 	function removeDefaultValues(style, tagName, pseudoElement) {
@@ -21,24 +22,24 @@ function DefaultValueFilter() {
 			output = {},
 			clone = document.createElement(tagName);
 
-		if(tagName === 'A') {
+		if (tagName === 'A') {
 			//when <a> doesn't have href attribute, default browser styles for this element are different
 			clone.setAttribute('href', '#');
 		}
 
 		iframe.contentWindow.document.body.appendChild(clone);
 
-		if(pseudoElement) {
+		if (pseudoElement) {
 			cloneStyle = clone.ownerDocument.defaultView.getComputedStyle(clone, pseudoElement);
 		} else {
 			cloneStyle = clone.ownerDocument.defaultView.getComputedStyle(clone);
 		}
 
-		for(property in style) {
+		for (property in style) {
 			avalue = cloneStyle[property];
 			bvalue = style[property];
 
-			if( !style.hasOwnProperty(property) || avalue === bvalue ) {
+			if (!style.hasOwnProperty(property) || avalue === bvalue) {
 				continue;
 			}
 
@@ -50,7 +51,7 @@ function DefaultValueFilter() {
 		return output;
 	}
 
-	this.process = function(styles) {
+	this.process = function (styles) {
 		var i, l,
 			style,
 			output = [];

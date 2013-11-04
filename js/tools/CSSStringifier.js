@@ -24,13 +24,13 @@ function CSSStringifier() {
 			idString,
 			output = [];
 
-		if(!(ids instanceof Array)) {
+		if (!(ids instanceof Array)) {
 			ids = [ids];
 		}
 
-		for(i= 0, l = ids.length; i<l; i++) {
+		for (i = 0, l = ids.length; i < l; i++) {
 			idString = '#' + ids[i];
-			if(pseudoElement) {
+			if (pseudoElement) {
 				idString += pseudoElement;
 			}
 
@@ -50,7 +50,7 @@ function CSSStringifier() {
 
 			output += printIDs(style.id) + ' {\n';
 			output += propertiesToString(style.node);
-			output += '}/*' + printIDs(style.id)+ '*/\n\n';
+			output += '}/*' + printIDs(style.id) + '*/\n\n';
 
 			if (style.after) {
 				output += printIDs(style.id, ':after') + ' {\n';
