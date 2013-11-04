@@ -6,16 +6,61 @@
  */
 function Snapshooter(root) {
 	"use strict";
-	var idCounter = 1;
+
+	// list of shorthand properties based on https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/core/css/CSSShorthands.in
+	// TODO this list should be generated dynamically
+	var shorthandProperties = {
+			'animation': 'animation',
+			'background': 'background',
+			'border': 'border',
+			'border-top': 'borderTop',
+			'border-right': 'borderRight',
+			'border-bottom': 'borderBottom',
+			'border-left': 'borderLeft',
+			'border-width': 'borderWidth',
+			'border-color': 'borderColor',
+			'border-style': 'borderStyle',
+			'border-radius': 'borderRadius',
+			'border-image': 'borderImage',
+			'border-spacing': 'borderSpacing',
+			'flex': 'flex',
+			'flex-flow': 'flexFlow',
+			'font': 'font',
+			'grid-area': 'gridArea',
+			'grid-column': 'gridColumn',
+			'grid-row': 'gridRow',
+			'list-style': 'listStyle',
+			'margin': 'margin',
+			'marker': 'marker',
+			'outline': 'outline',
+			'overflow': 'overflow',
+			'padding': 'padding',
+			'text-decoration': 'textDecoration',
+			'transition': 'transition',
+			'-webkit-border-after': 'webkitBorderAfter',
+			'-webkit-border-before': 'webkitBorderBefore',
+			'-webkit-border-end': 'webkitBorderEnd',
+			'-webkit-border-start': 'webkitBorderStart',
+			'-webkit-columns': 'webkitBorderColumns',
+			'-webkit-column-rule': 'webkitBorderColumnRule',
+			'-webkit-margin-collapse': 'webkitMarginCollapse',
+			'-webkit-mask': 'webkitMask',
+			'-webkit-mask-position': 'webkitMaskPosition',
+			'-webkit-mask-repeat': 'webkitMaskRepeat',
+			'-webkit-text-emphasis': 'webkitTextEmphasis',
+			'-webkit-transition': 'webkitTransition',
+			'-webkit-transform-origin': 'webkitTransformOrigin'
+		},
+		idCounter = 1;
 
 	/**
-	 * Changes CSSStyleDeclaration to simple Object removing unwanted properties in the process.
+	 * Changes CSSStyleDeclaration to simple Object removing unwanted properties ('1','2','parentRule','cssText' etc.) in the process.
 	 *
 	 * @param CSSStyleDeclaration style
 	 * @returns {}
 	 */
 	function styleDeclarationToSimpleObject(style) {
-		var i, l,
+		var i, l, cssName, camelCaseName,
 			output = {};
 
 		for(i=0, l=style.length; i<l; i++) {
@@ -24,6 +69,14 @@ function Snapshooter(root) {
 
 		// Work around http://crbug.com/313670 (the "content" property is not present as a computed style indexed property value).
 		output.content = style.content;
+
+		// Since shorthand properties are not available in the indexed array, copy them from named properties
+		for(cssName in shorthandProperties) {
+			if(shorthandProperties.hasOwnProperty(cssName)) {
+				camelCaseName = shorthandProperties[cssName];
+				output[cssName] = style[camelCaseName];
+			}
+		}
 
 		return output;
 	}
