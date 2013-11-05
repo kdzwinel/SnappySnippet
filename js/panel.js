@@ -131,7 +131,14 @@
 			html = $.htmlClean(html, {
 				removeTags: ['class'],
 				allowedAttributes: [
-					['id']
+					['id'],
+					['placeholder', ['input', 'textarea']],
+					['disabled', ['input', 'textarea', 'select', 'option', 'button']],
+					['value', ['input', 'button']],
+					['readonly', ['input', 'textarea', 'option']],
+					['label', ['option']],
+					['selected', ['option']],
+					['checked', ['input']]
 				],
 				format: true,
 				replace: [],
