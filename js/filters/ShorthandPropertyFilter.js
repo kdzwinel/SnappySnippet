@@ -16,15 +16,15 @@ function ShorthandPropertyFilter() {
 //		"background-position": ["background-position-x", "background-position-y"],
 //		"background-repeat": ["background-repeat-x", "background-repeat-y"],
 		"border": ["border-left", "border-right", "border-bottom", "border-top", "border-color", "border-style", "border-width", "border-top-color", "border-top-style", "border-top-width", "border-right-color", "border-right-style", "border-right-width", "border-bottom-color", "border-bottom-style", "border-bottom-width", "border-left-color", "border-left-style", "border-left-width"],
-		"border-bottom": ["border-bottom-width", "border-bottom-style", "border-bottom-color"],
+		"border-bottom": ["border-color", "border-style", "border-width", "border-bottom-width", "border-bottom-style", "border-bottom-color"],
 //		"border-color": ["border-top-color", "border-right-color", "border-bottom-color", "border-left-color"],
 //		"border-image": ["border-image-source", "border-image-slice", "border-image-width", "border-image-outset", "border-image-repeat"],
-		"border-left": ["border-left-width", "border-left-style", "border-left-color"],
+		"border-left": ["border-color", "border-style", "border-width", "border-left-width", "border-left-style", "border-left-color"],
 		"border-radius": ["border-top-left-radius", "border-top-right-radius", "border-bottom-right-radius", "border-bottom-left-radius"],
-		"border-right": ["border-right-width", "border-right-style", "border-right-color"],
+		"border-right": ["border-color", "border-style", "border-width", "border-right-width", "border-right-style", "border-right-color"],
 //		"border-spacing": ["-webkit-border-horizontal-spacing", "-webkit-border-vertical-spacing"],
 //		"border-style": ["border-top-style", "border-right-style", "border-bottom-style", "border-left-style"],
-		"border-top": ["border-top-width", "border-top-style", "border-top-color"],
+		"border-top": ["border-color", "border-style", "border-width", "border-top-width", "border-top-style", "border-top-color"],
 //		"border-width": ["border-top-width", "border-right-width", "border-bottom-width", "border-left-width"],
 		"flex": ["flex-grow", "flex-shrink", "flex-basis"],
 		"flex-flow": ["flex-direction", "flex-wrap"],
@@ -68,12 +68,24 @@ function ShorthandPropertyFilter() {
 			i, l;
 
 		for (shorthand in shorthands) {
+			// We need to build a 'blacklist' of redundant properties that can be safely removed.
+			// We can't safely remove all longhand properties because there are edge cases where
+			// these can't be replaced by shorthands (when shorthands are not expressive enough).
+			// e.g
+			// We can't remove 'overflow-x' and 'overflow-y' if their values are different ('overflow-x: auto; overflow-y: scroll')
+			// because 'overflow' property takes only one value ('overflow: auto, scroll' is invalid).
+			//
+			// If shorthand property isn't expressive enough to describe the longhand properties it will be empty
+			// and we can safely remove it leaving only longhand properties.
+
 			if (style.hasOwnProperty(shorthand) && style[shorthand]) {
 				longhands = shorthands[shorthand];
 
 				for (i = 0, l = longhands.length; i < l; i++) {
 					blacklist[longhands[i]] = true;
 				}
+			} else if(!style[shorthand]) {
+				blacklist[shorthand] = true;
 			}
 		}
 
