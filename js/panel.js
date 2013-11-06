@@ -29,6 +29,8 @@
 
 		errorBox = $('#error-box');
 
+	restoreSettings();
+
 	/*
 	 SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
 	 */
@@ -58,12 +60,12 @@
 		cssInput.val(encodeURIComponent(cssTextarea.val()));
 	});
 
-	propertiesCleanUpInput.on('change', processSnapshot);
-	removeDefaultValuesInput.on('change', processSnapshot);
-	removeWebkitPropertiesInput.on('change', processSnapshot);
-	fixHTMLIndentationInput.on('change', processSnapshot);
-	combineSameRulesInput.on('change', processSnapshot);
-	includeAncestors.on('change', processSnapshot);
+	propertiesCleanUpInput.on('change', persistSettingAndProcessSnapshot);
+	removeDefaultValuesInput.on('change', persistSettingAndProcessSnapshot);
+	removeWebkitPropertiesInput.on('change', persistSettingAndProcessSnapshot);
+	fixHTMLIndentationInput.on('change', persistSettingAndProcessSnapshot);
+	combineSameRulesInput.on('change', persistSettingAndProcessSnapshot);
+	includeAncestors.on('change', persistSettingAndProcessSnapshot);
 
 	createButton.on('click', makeSnapshot);
 
@@ -77,6 +79,24 @@
 	$('input[type="checkbox"]').each(function () {
 		$(this).checkbox();
 	});
+
+	function restoreSettings() {
+		for (var prop in localStorage) {
+			var el = $("#" + prop);
+			if (!el.length) {
+				// Make sure we don't leak any settings when changing/removing id's.
+				delete localStorage[prop];
+				continue;
+			}
+			el.prop("checked", localStorage[prop] === "true");
+		}
+	}
+
+	function persistSettingAndProcessSnapshot() {
+		console.assert(this.id);
+		localStorage[this.id] = this.checked;
+		processSnapshot();
+	}
 
 	function makeSnapshot() {
 		loader.addClass('creating');
