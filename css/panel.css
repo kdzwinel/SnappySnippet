@@ -92,6 +92,12 @@ iframe {
 	bottom: 10px;
 	z-index: 10;
 	display: block;
+
+	background: rgba(255,255,255,0.75);
+	-webkit-border-top-left-radius: 5px;
+	border-top-left-radius: 5px;
+	padding-left: 5px;
+	padding-top: 5px;
 }
 
 	#social-buttons iframe {
