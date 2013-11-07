@@ -60,6 +60,10 @@
 		cssInput.val(encodeURIComponent(cssTextarea.val()));
 	});
 
+	/*
+	Event listeners
+	 */
+
 	propertiesCleanUpInput.on('change', persistSettingAndProcessSnapshot);
 	removeDefaultValuesInput.on('change', persistSettingAndProcessSnapshot);
 	removeWebkitPropertiesInput.on('change', persistSettingAndProcessSnapshot);
@@ -80,23 +84,50 @@
 		$(this).checkbox();
 	});
 
+	/*
+	Settings - saving & restoring
+	 */
+
 	function restoreSettings() {
-		for (var prop in localStorage) {
-			var el = $("#" + prop);
-			if (!el.length) {
-				// Make sure we don't leak any settings when changing/removing id's.
-				delete localStorage[prop];
-				continue;
+		// since we can't access localStorage from here, we need to ask background page to maintain settings
+		// communication with background page is based on sendMessage/onMessage
+		chrome.runtime.sendMessage({
+			name: 'getSettings'
+		}, function(settings) {
+			for (var prop in settings) {
+				var el = $("#" + prop);
+
+				if (!el.length) {
+					// Make sure we don't leak any settings when changing/removing id's.
+					delete settings[prop];
+					continue;
+				}
+
+				//updating flat UI checkbox
+				el.data('checkbox').setCheck(settings[prop] === "true" ? 'check' : 'uncheck');
 			}
-			el.prop("checked", localStorage[prop] === "true");
-		}
+
+			chrome.runtime.sendMessage({
+				name: 'setSettings',
+				data: settings
+			})
+		});
+
 	}
 
 	function persistSettingAndProcessSnapshot() {
 		console.assert(this.id);
-		localStorage[this.id] = this.checked;
+		chrome.runtime.sendMessage({
+			name: 'changeSetting',
+			item: this.id,
+			value: this.checked
+		});
 		processSnapshot();
 	}
+
+	/*
+	Making & processing snippets
+	 */
 
 	function makeSnapshot() {
 		loader.addClass('creating');
