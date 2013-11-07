@@ -89,8 +89,8 @@
 	 */
 
 	function restoreSettings() {
-		// since we can't access localStorage from here, we need to ask background page to maintain settings
-		// communication with background page is based on sendMessage/onMessage
+		// Since we can't access localStorage from here, we need to ask background page to handle the settings.
+		// Communication with background page is based on sendMessage/onMessage.
 		chrome.runtime.sendMessage({
 			name: 'getSettings'
 		}, function(settings) {
