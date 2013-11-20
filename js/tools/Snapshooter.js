@@ -7,8 +7,8 @@
 function Snapshooter(root) {
 	"use strict";
 
-	// list of shorthand properties based on https://code.google.com/p/chromium/codesearch#chromium/src/third_party/WebKit/Source/core/css/CSSShorthands.in
-	// TODO this list should be generated dynamically
+	// list of shorthand properties based on CSSShorthands.in from the Chromium code (https://code.google.com/p/chromium/codesearch)
+	// TODO this list should not be hardcoded here
 	var shorthandProperties = {
 			'animation': 'animation',
 			'background': 'background',
@@ -68,7 +68,7 @@ function Snapshooter(root) {
 		}
 
 		// Work around http://crbug.com/313670 (the "content" property is not present as a computed style indexed property value).
-		output.content = style.content;
+		output.content = fixContentProperty(style.content);
 
 		// Since shorthand properties are not available in the indexed array, copy them from named properties
 		for (cssName in shorthandProperties) {
@@ -79,6 +79,31 @@ function Snapshooter(root) {
 		}
 
 		return output;
+	}
+
+	// Partial workaround for http://crbug.com/315028 (single words in the "content" property are not wrapped with quotes)
+	function fixContentProperty(content) {
+		var values, output, value, i, l;
+
+		output = [];
+
+		if(content) {
+			//content property can take multiple values - we need to split them up
+			//FIXME this won't work for '\''
+			values = content.match(/(?:[^\s']+|'[^']*')+/g);
+
+			for(i=0, l=values.length; i<l; i++) {
+				value = values[i];
+
+				if(value.match(/^(url\()|(attr\()|normal|none|open-quote|close-quote|no-open-quote|no-close-quote|chapter_counter|'/g)) {
+					output.push(value);
+				} else {
+					output.push("'" + value + "'");
+				}
+			}
+		}
+
+		return output.join(' ');
 	}
 
 	function createID(node) {
