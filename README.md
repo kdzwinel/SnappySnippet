@@ -34,9 +34,9 @@ Changelog
 
 ### 0.4 ###
 
-+ #8 Extract DOM and CSS up to the root element (by @crdev)
-+ #15 Preserve settings (by @crdev)
-+ Fix for #7 bug where shorthand property values were sometimes invalid
++ [#8](https://github.com/kdzwinel/SnappySnippet/issues/8) Extract DOM and CSS up to the root element (by @crdev)
++ [#15](https://github.com/kdzwinel/SnappySnippet/issues/15) Preserve settings (by @crdev)
++ Fix for [#7](https://github.com/kdzwinel/SnappySnippet/issues/7) bug where shorthand property values were sometimes invalid
 + Workarounds for buggy 'content' property
 
 ### 0.3 ###
