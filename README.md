@@ -32,6 +32,13 @@ https://github.com/kdzwinel/SnappySnippet/issues
 Changelog
 ---------
 
+### 0.4 ###
+
++ #8 Extract DOM and CSS up to the root element (by @crdev)
++ #15 Preserve settings (by @crdev)
++ Fix for #7 bug where shorthand property values were sometimes invalid
++ Workarounds for buggy 'content' property
+
 ### 0.3 ###
 
 + JS Bin support (by @remy)
@@ -39,8 +46,8 @@ Changelog
 
 Thanks to
 ------
-
-[qntmfred](https://github.com/qntmfred) for [inspiration](http://stackoverflow.com/questions/4911338/tools-to-selectively-copy-htmlcssjs-from-existing-sites)
++ [crdev](https://github.com/crdev) for all top-notch contributions, advice and help with Chrom(ium) bugs
++ [qntmfred](https://github.com/qntmfred) for [inspiration](http://stackoverflow.com/questions/4911338/tools-to-selectively-copy-htmlcssjs-from-existing-sites)
 
 Author
 ------
