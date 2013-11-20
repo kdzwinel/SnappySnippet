@@ -5,14 +5,13 @@
  */
 function WebkitPropertiesFilter() {
 	"use strict";
-	var webkitRegex = new RegExp("^-webkit-");
 
 	function removeWebkitProperties(style) {
 		var property,
 			output = {};
 
 		for (property in style) {
-			if (style.hasOwnProperty(property) && !webkitRegex.test(property)) {
+			if (style.hasOwnProperty(property) && !/^-webkit-/.test(property)) {
 				output[property] = style[property];
 			}
 		}
