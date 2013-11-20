@@ -43,6 +43,7 @@ iframe {
 	bottom: 0;
 	background: rgba(0,0,0,0.5);
 	opacity: 0;
+	z-index: 2;
 	-webkit-transition: opacity 0.3s, visibility 0.3s;
 	transition: opacity 0.3s, visibility 0.3s;
 }
@@ -90,7 +91,7 @@ iframe {
 	position: fixed;
 	right: 10px;
 	bottom: 10px;
-	z-index: 10;
+	z-index: 1;
 	display: block;
 
 	background: rgba(255,255,255,0.75);
