@@ -19,7 +19,7 @@ function CSSStringifier() {
 		return output;
 	}
 
-	function printIDs(ids, pseudoElement) {
+	function printIDs(ids, prefix, pseudoElement) {
 		var i, l,
 			idString,
 			output = [];
@@ -28,8 +28,10 @@ function CSSStringifier() {
 			ids = [ids];
 		}
 
+		prefix = prefix || "";
+
 		for (i = 0, l = ids.length; i < l; i++) {
-			idString = '#' + ids[i];
+			idString = '#' + prefix + ids[i];
 			if (pseudoElement) {
 				idString += pseudoElement;
 			}
@@ -40,7 +42,7 @@ function CSSStringifier() {
 		return output.join(', ');
 	}
 
-	this.process = function (styles) {
+	this.process = function (styles, prefix) {
 		var i, l,
 			style,
 			output = "";
@@ -48,20 +50,20 @@ function CSSStringifier() {
 		for (i = 0, l = styles.length; i < l; i++) {
 			style = styles[i];
 
-			output += printIDs(style.id) + ' {\n';
+			output += printIDs(style.id, prefix) + ' {\n';
 			output += propertiesToString(style.node);
-			output += '}/*' + printIDs(style.id) + '*/\n\n';
+			output += '}/*' + printIDs(style.id, prefix) + '*/\n\n';
 
 			if (style.after) {
-				output += printIDs(style.id, ':after') + ' {\n';
+				output += printIDs(style.id, prefix, ':after') + ' {\n';
 				output += propertiesToString(style.after);
-				output += '}/*' + printIDs(style.id, ':after') + '*/\n\n';
+				output += '}/*' + printIDs(style.id, prefix, ':after') + '*/\n\n';
 			}
 
 			if (style.before) {
-				output += printIDs(style.id, ':before') + ' {\n';
+				output += printIDs(style.id, prefix, ':before') + ' {\n';
 				output += propertiesToString(style.before);
-				output += '}/*' + printIDs(style.id, ':before') + '*/\n\n';
+				output += '}/*' + printIDs(style.id, prefix, ':before') + '*/\n\n';
 			}
 		}
 

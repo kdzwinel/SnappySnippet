@@ -87,6 +87,10 @@ iframe {
 	margin-top: 10px;
 }
 
+#settings {
+	padding-right: 10px;
+}
+
 #social-buttons {
 	position: fixed;
 	right: 10px;

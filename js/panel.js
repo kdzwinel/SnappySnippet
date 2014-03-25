@@ -24,6 +24,7 @@
 		combineSameRulesInput = $('#combine-same-rules'),
 		fixHTMLIndentationInput = $('#fix-html-indentation'),
 		includeAncestors = $('#include-ancestors'),
+		idPrefix = $('#id-prefix'),
 
 		htmlTextarea = $('#html'),
 		cssTextarea = $('#css'),
@@ -85,6 +86,28 @@
 		$(this).checkbox();
 	});
 
+	function isValidPrefix(prefix) {
+		var validator = /^[a-z][a-z0-9.\-_:]*$/i;
+
+		return validator.test(prefix);
+	}
+
+	idPrefix.on('change', function() {
+		var val = $(this).val(),
+			parent = $(this).parent();
+
+		parent.removeClass('has-error').removeClass('has-success');
+
+		if(val.length === 0) {
+			persistSettingAndProcessSnapshot.apply(this);
+		} else if(isValidPrefix(val)) {
+			parent.addClass('has-success');
+			persistSettingAndProcessSnapshot.apply(this);
+		} else {
+			parent.addClass('has-error');
+		}
+	});
+
 	/*
 	 Settings - saving & restoring
 	 */
@@ -104,8 +127,12 @@
 					continue;
 				}
 
-				//updating flat UI checkbox
-				el.data('checkbox').setCheck(settings[prop] === "true" ? 'check' : 'uncheck');
+				if(el.is('[type=checkbox]')) {
+					//updating flat UI checkbox
+					el.data('checkbox').setCheck(settings[prop] === "true" ? 'check' : 'uncheck');
+				} else {
+					el.val(settings[prop]);
+				}
 			}
 
 			chrome.runtime.sendMessage({
@@ -121,7 +148,7 @@
 		chrome.runtime.sendMessage({
 			name: 'changeSetting',
 			item: this.id,
-			value: this.checked
+			value: (this.type === 'checkbox') ? this.checked : this.value
 		});
 		processSnapshot();
 	}
@@ -154,7 +181,8 @@
 		}
 
 		var styles = lastSnapshot.css,
-			html = lastSnapshot.html;
+			html = lastSnapshot.html,
+			prefix = "";
 
 		if (includeAncestors.is(':checked')) {
 			styles = lastSnapshot.ancestorCss.concat(styles);
@@ -199,8 +227,12 @@
 			});
 		}
 
+		if(isValidPrefix(idPrefix.val())) {
+			prefix = idPrefix.val();
+		}
+
 		htmlTextarea.val(html);
-		cssTextarea.val(cssStringifier.process(styles));
+		cssTextarea.val(cssStringifier.process(styles, prefix));
 
 		loader.removeClass('processing');
 	}
