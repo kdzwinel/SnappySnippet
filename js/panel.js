@@ -9,6 +9,7 @@
 		defaultValueFilter = new DefaultValueFilter(),
 		sameRulesCombiner = new SameRulesCombiner(),
 		borderRadiusWorkaround = new BorderRadiusWorkaround(),
+		inspectedContext = new InspectedContext(),
 
 		loader = $('#loader'),
 		createButton = $('#create'),
@@ -61,7 +62,7 @@
 	});
 
 	/*
-	Event listeners
+	 Event listeners
 	 */
 
 	propertiesCleanUpInput.on('change', persistSettingAndProcessSnapshot);
@@ -85,7 +86,7 @@
 	});
 
 	/*
-	Settings - saving & restoring
+	 Settings - saving & restoring
 	 */
 
 	function restoreSettings() {
@@ -93,7 +94,7 @@
 		// Communication with background page is based on sendMessage/onMessage.
 		chrome.runtime.sendMessage({
 			name: 'getSettings'
-		}, function(settings) {
+		}, function (settings) {
 			for (var prop in settings) {
 				var el = $("#" + prop);
 
@@ -126,14 +127,14 @@
 	}
 
 	/*
-	Making & processing snippets
+	 Making & processing snippets
 	 */
 
 	function makeSnapshot() {
 		loader.addClass('creating');
 		errorBox.removeClass('active');
 
-		chrome.devtools.inspectedWindow.eval("(" + Snapshooter.toString() + ")($0)", function (result) {
+		inspectedContext.eval("(" + Snapshooter.toString() + ")($0)", function (result) {
 			try {
 				lastSnapshot = JSON.parse(result);
 			} catch (e) {
@@ -180,7 +181,7 @@
 
 		if (fixHTMLIndentationInput.is(':checked')) {
 			html = $.htmlClean(html, {
-				removeTags: ['class'],
+				removeAttrs: ['class'],
 				allowedAttributes: [
 					['id'],
 					['placeholder', ['input', 'textarea']],
