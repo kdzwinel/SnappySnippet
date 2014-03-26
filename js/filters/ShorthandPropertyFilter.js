@@ -112,7 +112,7 @@ function ShorthandPropertyFilter() {
 				node: keepOnlyShorthandProperties(style.node),
 				before: style.before ? keepOnlyShorthandProperties(style.before) : null,
 				after: style.after ? keepOnlyShorthandProperties(style.after) : null
-			})
+			});
 		}
 
 		return output;

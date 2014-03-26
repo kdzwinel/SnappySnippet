@@ -27,8 +27,8 @@ function InspectedContext() {
 						targetURL = url;
 					}
 					stepCompleted();
-				}.bind(this, url));
-			}.bind(this, currentURL));
+				}.bind(null, url));
+			}.bind(null, currentURL));
 		}
 
 		function stepCompleted() {
@@ -63,5 +63,5 @@ function InspectedContext() {
 
 			chrome.devtools.inspectedWindow.eval(code, settings, callback);
 		});
-	}
+	};
 }

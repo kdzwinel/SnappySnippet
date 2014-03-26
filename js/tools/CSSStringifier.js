@@ -68,5 +68,5 @@ function CSSStringifier() {
 		}
 
 		return output;
-	}
+	};
 }

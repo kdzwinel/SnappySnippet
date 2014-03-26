@@ -65,7 +65,7 @@ function DefaultValueFilter() {
 				node: removeDefaultValues(style.node, style.tagName),
 				before: style.before ? removeDefaultValues(style.before, style.tagName, ':before') : null,
 				after: style.after ? removeDefaultValues(style.after, style.tagName, ':after') : null
-			})
+			});
 		}
 
 		return output;

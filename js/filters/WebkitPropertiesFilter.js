@@ -33,7 +33,7 @@ function WebkitPropertiesFilter() {
 				node: removeWebkitProperties(style.node),
 				before: style.before ? removeWebkitProperties(style.before) : null,
 				after: style.after ? removeWebkitProperties(style.after) : null
-			})
+			});
 		}
 
 		return output;

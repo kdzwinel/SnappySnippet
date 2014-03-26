@@ -1,0 +1,24 @@
+{
+  "name": "SnappySnippet",
+  "version": "0.5.0",
+  "description": "Easily extract CSS and HTML from selected element. Then send it to CodePen, jsFiddle or JS Bin with one click.",
+  "main": "Gruntfile.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/kdzwinel/SnappySnippet.git"
+  },
+  "author": "Konrad Dzwinel",
+  "license": "GPL",
+  "bugs": {
+    "url": "https://github.com/kdzwinel/SnappySnippet/issues"
+  },
+  "homepage": "https://github.com/kdzwinel/SnappySnippet",
+  "dependencies": {
+    "grunt": "~0.4.4",
+    "grunt-contrib-jshint": "~0.9.2",
+    "grunt-contrib-watch": "~0.6.1",
+    "grunt-contrib-csslint": "~0.2.0",
+    "grunt-html-validation": "~0.1.14",
+    "grunt-zip": "~0.13.0"
+  }
+}

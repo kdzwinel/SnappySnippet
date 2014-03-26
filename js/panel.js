@@ -34,7 +34,7 @@
 	restoreSettings();
 
 	/*
-	 SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
+	SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
 	 */
 
 	codepenForm.on('submit', function () {
@@ -63,7 +63,7 @@
 	});
 
 	/*
-	 Event listeners
+	Event listeners
 	 */
 
 	propertiesCleanUpInput.on('change', persistSettingAndProcessSnapshot);
@@ -109,7 +109,7 @@
 	});
 
 	/*
-	 Settings - saving & restoring
+	Settings - saving & restoring
 	 */
 
 	function restoreSettings() {
@@ -138,12 +138,14 @@
 			chrome.runtime.sendMessage({
 				name: 'setSettings',
 				data: settings
-			})
+			});
 		});
 
 	}
 
 	function persistSettingAndProcessSnapshot() {
+		/*jshint validthis:true */
+
 		console.assert(this.id);
 		chrome.runtime.sendMessage({
 			name: 'changeSetting',
@@ -154,7 +156,7 @@
 	}
 
 	/*
-	 Making & processing snippets
+	Making & processing snippets
 	 */
 
 	function makeSnapshot() {

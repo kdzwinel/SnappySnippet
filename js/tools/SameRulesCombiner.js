@@ -45,7 +45,7 @@ function SameRulesCombiner() {
 				node: stylesA.node,
 				before: stylesA.before,
 				after: stylesA.after
-			})
+			});
 		}
 
 		return output;
