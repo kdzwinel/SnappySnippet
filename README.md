@@ -32,6 +32,11 @@ https://github.com/kdzwinel/SnappySnippet/issues
 Changelog
 ---------
 
+### 0.5 ###
+
++ [#13](https://github.com/kdzwinel/SnappySnippet/issues/13) IFrames support (by @crdev)
++ [#19](https://github.com/kdzwinel/SnappySnippet/issues/19) Prefixing/namespacing CSS IDs
+
 ### 0.4 ###
 
 + [#8](https://github.com/kdzwinel/SnappySnippet/issues/8) Extract DOM and CSS up to the root element (by @crdev)
@@ -42,9 +47,9 @@ Changelog
 ### 0.3 ###
 
 + JS Bin support (by @remy)
-+ temporary workaround for `getComputedStyle` bug in `border-radius` property (issue #4, thanks to @zessx for spotting this)
++ temporary workaround for `getComputedStyle` bug in `border-radius` property (issue [#4](https://github.com/kdzwinel/SnappySnippet/issues/4), thanks to @zessx for spotting this)
 
-Thanks to
+Special thanks to
 ------
 + [crdev](https://github.com/crdev) for all top-notch contributions, advice and help with Chrom(ium) bugs
 + [qntmfred](https://github.com/qntmfred) for [inspiration](http://stackoverflow.com/questions/4911338/tools-to-selectively-copy-htmlcssjs-from-existing-sites)
