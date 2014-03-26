@@ -229,12 +229,18 @@
 			});
 		}
 
+		styles = cssStringifier.process(styles);
+
 		if(isValidPrefix(idPrefix.val())) {
 			prefix = idPrefix.val();
 		}
 
+		//replacing prefix placeholder used in all IDs with actual prefix
+		html = html.replace(/:snappysnippet_prefix:/g, prefix);
+		styles = styles.replace(/:snappysnippet_prefix:/g, prefix);
+
 		htmlTextarea.val(html);
-		cssTextarea.val(cssStringifier.process(styles, prefix));
+		cssTextarea.val(styles);
 
 		loader.removeClass('processing');
 	}

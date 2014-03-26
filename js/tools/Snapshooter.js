@@ -107,7 +107,8 @@ function Snapshooter(root) {
 	}
 
 	function createID(node) {
-		return node.tagName + '_' + idCounter++;
+		//":snappysnippet_prefix:" is a prefix placeholder
+		return ':snappysnippet_prefix:' + node.tagName + '_' + idCounter++;
 	}
 
 	function dumpCSS(node, pseudoElement) {
