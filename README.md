@@ -12,14 +12,20 @@ Other features:
 
 ![Screenshot](https://github.com/kdzwinel/SnappySNippet/blob/master/gfx/screenshots/2.png?raw=true)
 
-Usage
------
+Installation
+------------
 
 You may install this extension from its google chrome webstore page
 
 https://chrome.google.com/webstore/detail/snappysnippet/blfngdefapoapkcdibbdkigpeaffgcil
 
 or download it and manually load as an 'Unpacked extension' via chrome extensions page.
+
+
+Usage
+-----
+
+Open Developer Tools, you should see the new SnappySnippet tab.  Inspect an element on the page and switch to the new tab, you will see options for settings and exporting the code for the element you selected. 
 
 
 Bugs and Features
