@@ -25,7 +25,9 @@ or download it and manually load as an 'Unpacked extension' via chrome extension
 Usage
 -----
 
-Open Developer Tools, you should see the new SnappySnippet tab.  Inspect an element on the page and switch to the new tab, you will see options for settings and exporting the code for the element you selected. 
+Open Developer Tools, you should see the new SnappySnippet tab. Inspect an element on the page and switch to the new tab, you will see options for settings and exporting the code for the element you selected.
+
+For more details, see [this demonstration video](https://www.youtube.com/watch?v=if5pXoIJ4EU).
 
 
 Bugs and Features
