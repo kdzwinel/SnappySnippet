@@ -170,6 +170,37 @@ function Snapshooter(root) {
 		return result;
 	}
 
+    /**
+     * Replaces all relative URLs (in images, links etc.) with absolute URLs
+     * @param element
+     */
+    function relativeURLsToAbsoluteURLs(element) {
+        switch(element.nodeName) {
+            case 'A':
+            case 'AREA':
+            case 'LINK':
+            case 'BASE':
+                if(element.hasAttribute('href')) {
+                    element.setAttribute('href', element.href);
+                }
+                break;
+            case 'IMG':
+            case 'IFRAME':
+            case 'INPUT':
+            case 'FRAME':
+            case 'SCRIPT':
+                if(element.hasAttribute('src')) {
+                    element.setAttribute('src', element.src);
+                }
+                break;
+            case 'FORM':
+                if(element.hasAttribute('action')) {
+                    element.setAttribute('action', element.action);
+                }
+                break;
+        }
+    }
+
 	function init() {
 		var css = [],
 			ancestorCss = [],
@@ -213,6 +244,7 @@ function Snapshooter(root) {
 		for (i = 0, l = descendants.length; i < l; i++) {
 			descendant = descendants[i];
 			descendant.setAttribute('id', createID(descendant));
+            relativeURLsToAbsoluteURLs(descendant);
 		}
 
 		// Build leading and trailing HTML for ancestors
