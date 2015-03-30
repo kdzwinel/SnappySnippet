@@ -8,7 +8,6 @@
 		webkitPropertiesFilter = new WebkitPropertiesFilter(),
 		defaultValueFilter = new DefaultValueFilter(),
 		sameRulesCombiner = new SameRulesCombiner(),
-		borderRadiusWorkaround = new BorderRadiusWorkaround(),
 		inspectedContext = new InspectedContext(),
 
 		loader = $('#loader'),
@@ -196,8 +195,6 @@
 		if (removeDefaultValuesInput.is(':checked')) {
 			styles = defaultValueFilter.process(styles);
 		}
-
-		borderRadiusWorkaround.process(styles);
 
 		if (propertiesCleanUpInput.is(':checked')) {
 			styles = shorthandPropertyFilter.process(styles);
