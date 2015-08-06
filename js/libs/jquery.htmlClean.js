@@ -1,22 +1,22 @@
 /*
-HTML Clean for jQuery   
-Anthony Johnston
-http://www.antix.co.uk    
-    
-version 1.4.0
+ HTML Clean for jQuery
+ Anthony Johnston
+ http://www.antix.co.uk
 
-$Revision: 99 $
+ version 1.4.0
 
-requires jQuery http://jquery.com   
+ $Revision: 99 $
 
-Use and distibution http://www.opensource.org/licenses/bsd-license.php
+ requires jQuery http://jquery.com
 
-2010-04-02 allowedTags/removeTags added (white/black list) thanks to David Wartian (Dwartian)
-2010-06-30 replaceStyles added for replacement of bold, italic, super and sub styles on a tag
-2012-04-30 allowedAttributes added, an array of attributed allowed on the elements
-2013-02-25 now will push non-inline elements up the stack if nested in an inline element
-2013-02-25 comment element support added, removed by default, see AllowComments in options
-*/
+ Use and distibution http://www.opensource.org/licenses/bsd-license.php
+
+ 2010-04-02 allowedTags/removeTags added (white/black list) thanks to David Wartian (Dwartian)
+ 2010-06-30 replaceStyles added for replacement of bold, italic, super and sub styles on a tag
+ 2012-04-30 allowedAttributes added, an array of attributed allowed on the elements
+ 2013-02-25 now will push non-inline elements up the stack if nested in an inline element
+ 2013-02-25 comment element support added, removed by default, see AllowComments in options
+ */
 (function ($) {
     $.fn.htmlClean = function (options) {
         // iterate and html clean each matched element
@@ -61,7 +61,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
             if (text.length > 0) {
                 var child = container.children[container.children.length - 1];
                 if (container.children.length > 0
-                        && isText(child = container.children[container.children.length - 1])) {
+                    && isText(child = container.children[container.children.length - 1])) {
                     // merge text
                     container.children[container.children.length - 1] = child.concat(text);
                 } else {
@@ -107,8 +107,8 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
                     }
 
                     if (tag.allowedAttributes != null
-                            && (tag.allowedAttributes.length == 0
-                            || $.inArray(attrMatch[1], tag.allowedAttributes) > -1)) {
+                        && (tag.allowedAttributes.length == 0
+                        || $.inArray(attrMatch[1], tag.allowedAttributes) > -1)) {
                         element.attributes.push(new Attribute(attrMatch[1], attrMatch[2]));
                     }
                 }
@@ -123,7 +123,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
                     for (var tagIndex = 0; tagIndex < options.replace[repIndex][0].length; tagIndex++) {
                         var byName = typeof (options.replace[repIndex][0][tagIndex]) == "string";
                         if ((byName && options.replace[repIndex][0][tagIndex] == tag.name)
-                                || (!byName && options.replace[repIndex][0][tagIndex].test(tagMatch))) {
+                            || (!byName && options.replace[repIndex][0][tagIndex].test(tagMatch))) {
 
                             // set the name to the replacement
                             tag.rename(options.replace[repIndex][1]);
@@ -142,7 +142,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
                             container = stack[stack.length - 1];
                         }
                     } else if (container.tag.disallowNest && tag.disallowNest
-                                && !tag.requiredParent) {
+                        && !tag.requiredParent) {
                         add = false;
                     } else if (tag.requiredParent) {
                         if (add = popToTagName(stack, tag.requiredParent)) {
@@ -198,7 +198,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
         format: false,
         // format indent to start on
         formatIndent: 0,
-        // tags to replace, and what to replace with, tag name or regex to match the tag and attributes 
+        // tags to replace, and what to replace with, tag name or regex to match the tag and attributes
         replace: [
             [["b", "big"], "strong"],
             [["i"], "em"]
@@ -237,8 +237,8 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
             // don't render if not in allowedTags or in removeTags
             var renderTag
                 = element.tag.render
-                    && (options.allowedTags.length == 0 || $.inArray(element.tag.name, options.allowedTags) > -1)
-                    && (options.removeTags.length == 0 || $.inArray(element.tag.name, options.removeTags) == -1);
+                && (options.allowedTags.length == 0 || $.inArray(element.tag.name, options.allowedTags) > -1)
+                && (options.removeTags.length == 0 || $.inArray(element.tag.name, options.removeTags) == -1);
 
             if (!element.isRoot && renderTag) {
 
@@ -251,16 +251,16 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
                         var value = m[2];
                         var valueQuote = m[1] || "'";
 
-                        // check for classes allowed                    
+                        // check for classes allowed
                         if (this.name == "class" && options.allowedClasses.length > 0) {
                             value =
-                            $.grep(value.split(" "), function (c) {
-                                return $.grep(options.allowedClasses, function (a) {
-                                    return a == c
-                                        || (a[0] == c && (a.length == 1 || $.inArray(element.tag.name, a[1]) > -1));
-                                }).length > 0;
-                            })
-                            .join(" ");
+                                $.grep(value.split(" "), function (c) {
+                                    return $.grep(options.allowedClasses, function (a) {
+                                            return a == c
+                                                || (a[0] == c && (a.length == 1 || $.inArray(element.tag.name, a[1]) > -1));
+                                        }).length > 0;
+                                })
+                                    .join(" ");
                         }
 
                         if (value != null && (value.length > 0 || $.inArray(this.name, element.tag.requiredAttributes) > -1)) {
@@ -276,7 +276,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
             }
 
             if (element.tag.isSelfClosing) {
-                // self closing 
+                // self closing
                 if (renderTag) output.push(" />");
                 empty = false;
             } else if (element.tag.isNonClosing) {
@@ -301,7 +301,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
                         var text = $.htmlClean.trim(textClean(isText(child) ? child : child.childrenToString()));
                         if (isInline(child)) {
                             if (i > 0 && text.length > 0
-                        && (startsWithWhitespace(child) || endsWithWhitespace(element.children[i - 1]))) {
+                                && (startsWithWhitespace(child) || endsWithWhitespace(element.children[i - 1]))) {
                                 outputChildren.push(" ");
                             }
                         }
@@ -365,7 +365,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
         if (test(element)) {
             return true;
         } else if (stack.length - index > 0
-                && pop(stack, test, index + 1)) {
+            && pop(stack, test, index + 1)) {
             stack.pop();
             return true;
         }
@@ -444,9 +444,9 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
                     for (var i = 0; i < options.allowedAttributes.length; i++) {
                         var attrName = options.allowedAttributes[i][0];
                         if ((
-                            options.allowedAttributes[i].length == 1
+                                options.allowedAttributes[i].length == 1
                                 || $.inArray(this.name, options.allowedAttributes[i][1]) > -1
-                        ) && $.inArray(attrName, cacheItem) == -1) {
+                            ) && $.inArray(attrName, cacheItem) == -1) {
                             cacheItem.push(attrName);
                         }
                     }
@@ -537,7 +537,7 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
         "tbody", ["table"],
         "tfoot", ["table"],
         "param", ["object"]
-        ];
+    ];
     var tagProtect = ["script", "style", "pre", "code"];
     // tags which self close e.g. <br />
     var tagSelfClosing = ["area", "base", "br", "col", "command", "embed", "hr", "img", "input", "keygen", "link", "meta", "param", "source", "track", "wbr"];
@@ -545,40 +545,40 @@ Use and distibution http://www.opensource.org/licenses/bsd-license.php
     var tagNonClosing = ["!doctype", "?xml"];
     // attributes allowed on tags
     var tagAttributes = [
-            ["class"],  // default, for all tags not mentioned
-            "?xml", [],
-            "!doctype", [],
-            "a", ["accesskey", "class", "href", "name", "title", "rel", "rev", "type", "tabindex"],
-            "abbr", ["class", "title"],
-            "acronym", ["class", "title"],
-            "blockquote", ["cite", "class"],
-            "button", ["class", "disabled", "name", "type", "value"],
-            "del", ["cite", "class", "datetime"],
-            "form", ["accept", "action", "class", "enctype", "method", "name"],
-            "iframe", ["class", "height", "name", "sandbox", "seamless", "src", "srcdoc", "width"],
-            "input", ["accept", "accesskey", "alt", "checked", "class", "disabled", "ismap", "maxlength", "name", "size", "readonly", "src", "tabindex", "type", "usemap", "value"],
-            "img", ["alt", "class", "height", "src", "width"],
-            "ins", ["cite", "class", "datetime"],
-            "label", ["accesskey", "class", "for"],
-            "legend", ["accesskey", "class"],
-            "link", ["href", "rel", "type"],
-            "meta", ["content", "http-equiv", "name", "scheme", "charset"],
-            "map", ["name"],
-            "optgroup", ["class", "disabled", "label"],
-            "option", ["class", "disabled", "label", "selected", "value"],
-            "q", ["class", "cite"],
-            "script", ["src", "type"],
-            "select", ["class", "disabled", "multiple", "name", "size", "tabindex"],
-            "style", ["type"],
-            "table", ["class", "summary"],
-            "th", ["class", "colspan", "rowspan"],
-            "td", ["class", "colspan", "rowspan"],
-            "textarea", ["accesskey", "class", "cols", "disabled", "name", "readonly", "rows", "tabindex"],
-            "param", ["name", "value"],
-            "embed", ["height", "src", "type", "width"]
-        ];
+        ["class"],  // default, for all tags not mentioned
+        "?xml", [],
+        "!doctype", [],
+        "a", ["accesskey", "class", "href", "name", "title", "rel", "rev", "type", "tabindex"],
+        "abbr", ["class", "title"],
+        "acronym", ["class", "title"],
+        "blockquote", ["cite", "class"],
+        "button", ["class", "disabled", "name", "type", "value"],
+        "del", ["cite", "class", "datetime"],
+        "form", ["accept", "action", "class", "enctype", "method", "name"],
+        "iframe", ["class", "height", "name", "sandbox", "seamless", "src", "srcdoc", "width"],
+        "input", ["accept", "accesskey", "alt", "checked", "class", "disabled", "ismap", "maxlength", "name", "size", "readonly", "src", "tabindex", "type", "usemap", "value"],
+        "img", ["alt", "class", "height", "src", "width"],
+        "ins", ["cite", "class", "datetime"],
+        "label", ["accesskey", "class", "for"],
+        "legend", ["accesskey", "class"],
+        "link", ["href", "rel", "type"],
+        "meta", ["content", "http-equiv", "name", "scheme", "charset"],
+        "map", ["name"],
+        "optgroup", ["class", "disabled", "label"],
+        "option", ["class", "disabled", "label", "selected", "value"],
+        "q", ["class", "cite"],
+        "script", ["src", "type"],
+        "select", ["class", "disabled", "multiple", "name", "size", "tabindex"],
+        "style", ["type"],
+        "table", ["class", "summary"],
+        "th", ["class", "colspan", "rowspan"],
+        "td", ["class", "colspan", "rowspan"],
+        "textarea", ["accesskey", "class", "cols", "disabled", "name", "readonly", "rows", "tabindex"],
+        "param", ["name", "value"],
+        "embed", ["height", "src", "type", "width"]
+    ];
     var tagAttributesRequired = [[], "img", ["alt"]];
     // white space chars
-    var whitespace = [" ", " ", "\t", "\n", "\r", "\f"];
+    var whitespace = [" ", " ", "\t", "\n", "\r", "\f"];
 
 })(jQuery);

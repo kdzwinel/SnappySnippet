@@ -68,6 +68,7 @@ Author
 **Konrad Dzwinel**
 
 + https://github.com/kdzwinel
++ https://twitter.com/kdzwinel
 + http://www.linkedin.com/pub/konrad-dzwinel/53/599/366/en
 
 License
