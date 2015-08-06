@@ -28,14 +28,10 @@ module.exports = function (grunt) {
 				'fallback-colors': false
 			}
 		},
-		validation: {
+		htmllint: {
 			options: {
-				reset: true,
-				reportpath: false
 			},
-			files: {
-				src: ['*.html']
-			}
+			src: '*.html'
 		},
 		zip: {
 			'snappysnippet-<%= pkg.version %>.zip': ['css/**/*', 'gfx/*.png', 'js/**/*', '*.html', 'manifest.json']
@@ -44,9 +40,9 @@ module.exports = function (grunt) {
 
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-contrib-csslint');
-	grunt.loadNpmTasks('grunt-html-validation');
+	grunt.loadNpmTasks('grunt-html');
 	grunt.loadNpmTasks('grunt-zip');
 
-	grunt.registerTask('default', ['jshint', 'csslint', 'validation']);
+	grunt.registerTask('default', ['jshint', 'csslint', 'htmllint']);
 	grunt.registerTask('prod', ['zip']);
 };

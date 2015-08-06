@@ -18,7 +18,7 @@
     "grunt-contrib-jshint": "~0.9.2",
     "grunt-contrib-watch": "~0.6.1",
     "grunt-contrib-csslint": "~0.2.0",
-    "grunt-html-validation": "~0.1.14",
-    "grunt-zip": "~0.13.0"
+    "grunt-zip": "~0.13.0",
+    "grunt-html": "^5.0.0"
   }
 }

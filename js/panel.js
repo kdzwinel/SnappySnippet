@@ -32,9 +32,7 @@
 
 	restoreSettings();
 
-	/*
-	 SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
-	 */
+	//SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
 
 	codepenForm.on('submit', function () {
 		var dataInput = codepenForm.find('input[name=data]');
@@ -61,9 +59,7 @@
 		cssInput.val(encodeURIComponent(cssTextarea.val()));
 	});
 
-	/*
-	 Event listeners
-	 */
+	//Event listeners
 
 	propertiesCleanUpInput.on('change', persistSettingAndProcessSnapshot);
 	removeDefaultValuesInput.on('change', persistSettingAndProcessSnapshot);
@@ -107,9 +103,7 @@
 		}
 	});
 
-	/*
-	 Settings - saving & restoring
-	 */
+	//Settings - saving & restoring
 
 	function restoreSettings() {
 		// Since we can't access localStorage from here, we need to ask background page to handle the settings.
@@ -154,9 +148,7 @@
 		processSnapshot();
 	}
 
-	/*
-	 Making & processing snippets
-	 */
+	//Making & processing snippets
 
 	function makeSnapshot() {
 		loader.addClass('creating');
