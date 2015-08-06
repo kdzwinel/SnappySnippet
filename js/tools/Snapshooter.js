@@ -87,15 +87,15 @@ function Snapshooter(root) {
 
 		output = [];
 
-		if(content) {
+		if (content) {
 			//content property can take multiple values - we need to split them up
 			//FIXME this won't work for '\''
 			values = content.match(/(?:[^\s']+|'[^']*')+/g);
 
-			for(i=0, l=values.length; i<l; i++) {
+			for (i = 0, l = values.length; i < l; i++) {
 				value = values[i];
 
-				if(value.match(/^(url\()|(attr\()|normal|none|open-quote|close-quote|no-open-quote|no-close-quote|chapter_counter|'/g)) {
+				if (value.match(/^(url\()|(attr\()|normal|none|open-quote|close-quote|no-open-quote|no-close-quote|chapter_counter|'/g)) {
 					output.push(value);
 				} else {
 					output.push("'" + value + "'");
@@ -170,36 +170,36 @@ function Snapshooter(root) {
 		return result;
 	}
 
-    /**
-     * Replaces all relative URLs (in images, links etc.) with absolute URLs
-     * @param element
-     */
-    function relativeURLsToAbsoluteURLs(element) {
-        switch(element.nodeName) {
-            case 'A':
-            case 'AREA':
-            case 'LINK':
-            case 'BASE':
-                if(element.hasAttribute('href')) {
-                    element.setAttribute('href', element.href);
-                }
-                break;
-            case 'IMG':
-            case 'IFRAME':
-            case 'INPUT':
-            case 'FRAME':
-            case 'SCRIPT':
-                if(element.hasAttribute('src')) {
-                    element.setAttribute('src', element.src);
-                }
-                break;
-            case 'FORM':
-                if(element.hasAttribute('action')) {
-                    element.setAttribute('action', element.action);
-                }
-                break;
-        }
-    }
+	/**
+	 * Replaces all relative URLs (in images, links etc.) with absolute URLs
+	 * @param element
+	 */
+	function relativeURLsToAbsoluteURLs(element) {
+		switch (element.nodeName) {
+			case 'A':
+			case 'AREA':
+			case 'LINK':
+			case 'BASE':
+				if (element.hasAttribute('href')) {
+					element.setAttribute('href', element.href);
+				}
+				break;
+			case 'IMG':
+			case 'IFRAME':
+			case 'INPUT':
+			case 'FRAME':
+			case 'SCRIPT':
+				if (element.hasAttribute('src')) {
+					element.setAttribute('src', element.src);
+				}
+				break;
+			case 'FORM':
+				if (element.hasAttribute('action')) {
+					element.setAttribute('action', element.action);
+				}
+				break;
+		}
+	}
 
 	function init() {
 		var css = [],
@@ -244,7 +244,7 @@ function Snapshooter(root) {
 		for (i = 0, l = descendants.length; i < l; i++) {
 			descendant = descendants[i];
 			descendant.setAttribute('id', createID(descendant));
-            relativeURLsToAbsoluteURLs(descendant);
+			relativeURLsToAbsoluteURLs(descendant);
 		}
 
 		// Build leading and trailing HTML for ancestors

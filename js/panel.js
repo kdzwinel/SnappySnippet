@@ -33,7 +33,7 @@
 	restoreSettings();
 
 	/*
-	SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
+	 SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
 	 */
 
 	codepenForm.on('submit', function () {
@@ -62,7 +62,7 @@
 	});
 
 	/*
-	Event listeners
+	 Event listeners
 	 */
 
 	propertiesCleanUpInput.on('change', persistSettingAndProcessSnapshot);
@@ -91,15 +91,15 @@
 		return validator.test(prefix);
 	}
 
-	idPrefix.on('change', function() {
+	idPrefix.on('change', function () {
 		var val = $(this).val(),
 			parent = $(this).parent();
 
 		parent.removeClass('has-error').removeClass('has-success');
 
-		if(val.length === 0) {
+		if (val.length === 0) {
 			persistSettingAndProcessSnapshot.apply(this);
-		} else if(isValidPrefix(val)) {
+		} else if (isValidPrefix(val)) {
 			parent.addClass('has-success');
 			persistSettingAndProcessSnapshot.apply(this);
 		} else {
@@ -108,7 +108,7 @@
 	});
 
 	/*
-	Settings - saving & restoring
+	 Settings - saving & restoring
 	 */
 
 	function restoreSettings() {
@@ -126,7 +126,7 @@
 					continue;
 				}
 
-				if(el.is('[type=checkbox]')) {
+				if (el.is('[type=checkbox]')) {
 					//updating flat UI checkbox
 					el.data('checkbox').setCheck(settings[prop] === "true" ? 'check' : 'uncheck');
 				} else {
@@ -155,7 +155,7 @@
 	}
 
 	/*
-	Making & processing snippets
+	 Making & processing snippets
 	 */
 
 	function makeSnapshot() {
@@ -228,7 +228,7 @@
 
 		styles = cssStringifier.process(styles);
 
-		if(isValidPrefix(idPrefix.val())) {
+		if (isValidPrefix(idPrefix.val())) {
 			prefix = idPrefix.val();
 		}
 

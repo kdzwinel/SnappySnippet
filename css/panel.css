@@ -41,7 +41,7 @@ iframe {
 	right: 0;
 	top: 0;
 	bottom: 0;
-	background: rgba(0,0,0,0.5);
+	background: rgba(0, 0, 0, 0.5);
 	opacity: 0;
 	z-index: 2;
 	-webkit-transition: opacity 0.3s, visibility 0.3s;
@@ -98,14 +98,13 @@ iframe {
 	z-index: 1;
 	display: block;
 
-	background: rgba(255,255,255,0.75);
-	-webkit-border-top-left-radius: 5px;
+	background: rgba(255, 255, 255, 0.75);
 	border-top-left-radius: 5px;
 	padding-left: 5px;
 	padding-top: 5px;
 }
 
-	#social-buttons iframe {
-		margin-top: 3px;
-		display: block;
-	}
+#social-buttons iframe {
+	margin-top: 3px;
+	display: block;
+}

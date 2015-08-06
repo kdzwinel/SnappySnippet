@@ -84,7 +84,7 @@ function ShorthandPropertyFilter() {
 				for (i = 0, l = longhands.length; i < l; i++) {
 					blacklist[longhands[i]] = true;
 				}
-			} else if(!style[shorthand]) {
+			} else if (!style[shorthand]) {
 				blacklist[shorthand] = true;
 			}
 		}
