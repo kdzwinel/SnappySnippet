@@ -69,9 +69,13 @@
                             <li><label class="checkbox">
                                 <input type='checkbox' id='include-ancestors'/> Include ancestor elements in the snippet
                             </label></li>
+                            <li><label class="checkbox">
+                                <input type='checkbox' id='combine-css-to-html'/> Incorporate CSS into HTML as style
+                                attributes
+                            </label></li>
                             <li>
                                 <div class="form-group">
-                                    Prefix all CSS IDs with <input type='text' class="form-control" id='id-prefix' placeholder="prefix_"/>
+                                    Prefix all CSS IDs with <input type='text' class='form-control' id='id-prefix' placeholder='prefix_'/>
                                 </div>
                             </li>
                         </ul>
@@ -149,10 +153,11 @@
 
 <script src='js/libs/jquery.htmlClean.js'></script>
 <script src='js/tools/CSSStringifier.js'></script>
-<script src='js/tools/SameRulesCombiner.js'></script>
+<script src='js/processors/SameRulesCombiner.js'></script>
 <script src='js/filters/DefaultValueFilter.js'></script>
 <script src='js/filters/ShorthandPropertyFilter.js'></script>
 <script src='js/filters/WebkitPropertiesFilter.js'></script>
+<script src='js/processors/HTMLStylesCombiner.js'></script>
 <script src='js/tools/Snapshooter.js'></script>
 <script src='js/tools/InspectedContext.js'></script>
 <script src='js/panel.js'></script>
