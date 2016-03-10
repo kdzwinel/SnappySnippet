@@ -35,6 +35,7 @@
         options.allowEmpty = tagAllowEmpty.concat(options.allowEmpty);
 
         var tagsRE = /(<(\/)?(\w+:)?([\w]+)([^>]*)>)|<!--(.*?--)>/gi;
+        var tagsOnlyRE = /(<(\/)?(\w+:)?([\w]+)([^>]*)>)/gi;
         var attrsRE = /([\w\-]+)\s*=\s*(".*?"|'.*?'|[^\s>\/]*)/gi;
 
         var tagMatch;
@@ -157,7 +158,7 @@
                     if (tag.toProtect) {
                         // skip to closing tag
                         var tagMatch2;
-                        while (tagMatch2 = tagsRE.exec(html)) {
+                        while (tagMatch2 = tagsOnlyRE.exec(html)) {
                             var tag2 = new Tag(tagMatch2[4], tagMatch2[1], tagMatch2[5], options);
                             if (tag2.isClosing && tag2.name == tag.name) {
                                 element.children.push(RegExp.leftContext.substring(lastIndex));
