@@ -202,8 +202,12 @@
 		}
 
 		if (retainClasses.is(':checked')) {
-			// Replace with way of deleting just the class feature
-			htmlCleanOptions.removeAttrs = [];
+			for (var index in htmlCleanOptions.removeAttrs) {
+				var value = htmlCleanOptions.removeAttrs[index];
+				if (value === 'class') {
+					htmlCleanOptions.removeAttrs.splice(index, 1);
+				}
+			}
 		}
 
 		loader.addClass('processing');
