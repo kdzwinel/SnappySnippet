@@ -40,6 +40,16 @@ function CSSStringifier() {
 		return output.join(', ');
 	}
 
+	function generateStyle(selector, node) {
+		var output = "";
+
+		output += selector + ' {\n';
+		output += propertiesToString(node);
+		output += '}/*' + selector + '*/\n\n';
+
+		return output;
+	}
+
 	this.process = function (styles) {
 		var i, l,
 			style,
@@ -48,20 +58,14 @@ function CSSStringifier() {
 		for (i = 0, l = styles.length; i < l; i++) {
 			style = styles[i];
 
-			output += printIDs(style.id) + ' {\n';
-			output += propertiesToString(style.node);
-			output += '}/*' + printIDs(style.id) + '*/\n\n';
+			output += generateStyle(printIDs(style.id), style.node);
 
 			if (style.after) {
-				output += printIDs(style.id, ':after') + ' {\n';
-				output += propertiesToString(style.after);
-				output += '}/*' + printIDs(style.id, ':after') + '*/\n\n';
+				output += generateStyle(printIDs(style.id, ':after'), style.after);
 			}
 
 			if (style.before) {
-				output += printIDs(style.id, ':before') + ' {\n';
-				output += propertiesToString(style.before);
-				output += '}/*' + printIDs(style.id, ':before') + '*/\n\n';
+				output += generateStyle(printIDs(style.id, ':before'), style.before);
 			}
 		}
 
