@@ -90,4 +90,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 New Fork
 ------------
 
+Trying to implement more options and code to get cleaner CSS. 
+
+
+Developer
+------------
+
 Achraf Jeday
