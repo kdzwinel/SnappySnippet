@@ -92,6 +92,8 @@ New Fork
 
 Trying to implement more options and code to get cleaner HTML and CSS.
 
+Get rid of inherited CSS properties.
+
 
 Developer
 ------------
