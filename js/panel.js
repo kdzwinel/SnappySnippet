@@ -23,6 +23,7 @@
 		combineSameRulesInput = $('#combine-same-rules'),
 		fixHTMLIndentationInput = $('#fix-html-indentation'),
 		includeAncestors = $('#include-ancestors'),
+		retainClasses = $('#retain-classes'),
 		idPrefix = $('#id-prefix'),
 
 		htmlTextarea = $('#html'),
@@ -30,7 +31,11 @@
 
 		errorBox = $('#error-box');
 
+
+console.log('something1');
 	restoreSettings();
+console.log('something2');
+
 
 	//SUBMITTING THE CODE TO CodePen/jsFiddle/jsBin
 
@@ -67,6 +72,7 @@
 	fixHTMLIndentationInput.on('change', persistSettingAndProcessSnapshot);
 	combineSameRulesInput.on('change', persistSettingAndProcessSnapshot);
 	includeAncestors.on('change', persistSettingAndProcessSnapshot);
+	retainClasses.on('change', persistSettingAndProcessSnapshot);
 
 	createButton.on('click', makeSnapshot);
 
@@ -111,6 +117,7 @@
 		chrome.runtime.sendMessage({
 			name: 'getSettings'
 		}, function (settings) {
+			console.log(settings);
 			for (var prop in settings) {
 				var el = $("#" + prop);
 
@@ -128,17 +135,17 @@
 				}
 			}
 
-			chrome.runtime.sendMessage({
-				name: 'setSettings',
-				data: settings
-			});
+			// chrome.runtime.sendMessage({
+			// 	name: 'setSettings',
+			// 	data: settings
+			// });
 		});
 
 	}
 
 	function persistSettingAndProcessSnapshot() {
 		/*jshint validthis:true */
-
+console.log('something3');
 		console.assert(this.id);
 		chrome.runtime.sendMessage({
 			name: 'changeSetting',
@@ -175,11 +182,37 @@
 
 		var styles = lastSnapshot.css,
 			html = lastSnapshot.html,
-			prefix = "";
+			prefix = "",
+			htmlCleanOptions = {
+				removeAttrs: ['class'],
+				allowedAttributes: [
+					['id'],
+					['placeholder', ['input', 'textarea']],
+					['disabled', ['input', 'textarea', 'select', 'option', 'button']],
+					['value', ['input', 'button']],
+					['readonly', ['input', 'textarea', 'option']],
+					['label', ['option']],
+					['selected', ['option']],
+					['checked', ['input']]
+				],
+				format: true,
+				replace: [],
+				replaceStyles: [],
+				allowComments: true
+			};
 
 		if (includeAncestors.is(':checked')) {
 			styles = lastSnapshot.ancestorCss.concat(styles);
 			html = lastSnapshot.leadingAncestorHtml + html + lastSnapshot.trailingAncestorHtml;
+		}
+
+		if (retainClasses.is(':checked')) {
+			for (var index in htmlCleanOptions.removeAttrs) {
+				var value = htmlCleanOptions.removeAttrs[index];
+				if (value === 'class') {
+					htmlCleanOptions.removeAttrs.splice(index, 1);
+				}
+			}
 		}
 
 		loader.addClass('processing');
@@ -199,23 +232,7 @@
 		}
 
 		if (fixHTMLIndentationInput.is(':checked')) {
-			html = $.htmlClean(html, {
-				removeAttrs: ['class'],
-				allowedAttributes: [
-					['id'],
-					['placeholder', ['input', 'textarea']],
-					['disabled', ['input', 'textarea', 'select', 'option', 'button']],
-					['value', ['input', 'button']],
-					['readonly', ['input', 'textarea', 'option']],
-					['label', ['option']],
-					['selected', ['option']],
-					['checked', ['input']]
-				],
-				format: true,
-				replace: [],
-				replaceStyles: [],
-				allowComments: true
-			});
+			html = $.htmlClean(html, htmlCleanOptions);
 		}
 
 		styles = cssStringifier.process(styles);
@@ -230,6 +247,7 @@
 
 		htmlTextarea.val(html);
 		cssTextarea.val(styles);
+		console.log('something4');
 
 		loader.removeClass('processing');
 	}
