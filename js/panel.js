@@ -39,7 +39,9 @@
 
 		dataInput.val(JSON.stringify({
 			html: htmlTextarea.val(),
-			css: cssTextarea.val()
+			css: cssTextarea.val(),
+			editors: '110',
+			tags: ['SnappySnippet']
 		}));
 	});
 
