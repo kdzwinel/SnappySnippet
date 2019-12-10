@@ -15,12 +15,7 @@ Other features:
 Installation
 ------------
 
-You may install this extension from its google chrome webstore page
-
-https://chrome.google.com/webstore/detail/snappysnippet/blfngdefapoapkcdibbdkigpeaffgcil
-
-or download it and manually load as an 'Unpacked extension' via chrome extensions page.
-
+Download the extension and manually load it as an 'Unpacked extension' via the extensions page.
 
 Usage
 -----
