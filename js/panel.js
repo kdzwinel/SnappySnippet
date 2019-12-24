@@ -8,6 +8,7 @@
 		webkitPropertiesFilter = new WebkitPropertiesFilter(),
 		defaultValueFilter = new DefaultValueFilter(),
 		sameRulesCombiner = new SameRulesCombiner(),
+		htmlStylesCombiner = new HTMLStylesCombiner(),
 		inspectedContext = new InspectedContext(),
 
 		loader = $('#loader'),
@@ -23,6 +24,7 @@
 		combineSameRulesInput = $('#combine-same-rules'),
 		fixHTMLIndentationInput = $('#fix-html-indentation'),
 		includeAncestors = $('#include-ancestors'),
+		combineCssIntoHTML = $('#combine-css-to-html'),
 		idPrefix = $('#id-prefix'),
 
 		htmlTextarea = $('#html'),
@@ -69,6 +71,7 @@
 	fixHTMLIndentationInput.on('change', persistSettingAndProcessSnapshot);
 	combineSameRulesInput.on('change', persistSettingAndProcessSnapshot);
 	includeAncestors.on('change', persistSettingAndProcessSnapshot);
+	combineCssIntoHTML.on('change', persistSettingAndProcessSnapshot);
 
 	createButton.on('click', makeSnapshot);
 
@@ -218,6 +221,10 @@
 				replaceStyles: [],
 				allowComments: true
 			});
+		}
+
+		if (combineCssIntoHTML.is(':checked')) {
+			html = htmlStylesCombiner.process(html, styles);
 		}
 
 		styles = cssStringifier.process(styles);
