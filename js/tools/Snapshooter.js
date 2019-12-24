@@ -111,6 +111,25 @@ function Snapshooter(root) {
 		return ':snappysnippet_prefix:' + node.tagName + '_' + idCounter++;
 	}
 
+    function findMatchedProperties(el) {
+        var sheets = document.styleSheets, ret = {};
+        el.matches = el.matches || el.webkitMatchesSelector || el.mozMatchesSelector 
+            || el.msMatchesSelector || el.oMatchesSelector;
+        for (var i in sheets) {
+            var rules = sheets[i].rules || sheets[i].cssRules;
+            for (var r in rules) {
+                if (el.matches(rules[r].selectorText)) {
+                    var rule_style = rules[r].style;
+                    for (var i = rule_style.length -1 ; i >=0; i--) {
+                        ret[rule_style[i]] = true;
+                    }
+                }
+            }
+        }
+        return ret;
+    }
+    
+
 	function dumpCSS(node, pseudoElement) {
 		var styles;
 
@@ -124,7 +143,20 @@ function Snapshooter(root) {
 			}
 		}
 
-		return styleDeclarationToSimpleObject(styles);
+		var style_object = styleDeclarationToSimpleObject(styles);
+        var filtered_properties = findMatchedProperties(node);
+        
+        var properties = Object.keys(style_object)
+
+        for (var i = properties.length-1; i >=0; i--) {
+            var property_name = properties[i];
+
+            if (!filtered_properties.hasOwnProperty(property_name)) {
+                delete style_object[property_name];
+            }
+        }
+        
+        return style_object
 	}
 
 	function cssObjectForElement(element, omitPseudoElements) {
