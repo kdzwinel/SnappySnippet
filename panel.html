@@ -109,6 +109,7 @@
                 <button type='submit' class='btn btn-primary'><span class="fui-mail"></span> Send to CodePen</button>
             </form>
         </div>
+		
         <div class="col-xs-4">
             <form action="https://jsbin.com/?html,css,output" method="POST" target="_blank" id='jsbin-form'>
                 <input type="hidden" name="html" value=''/>
@@ -116,10 +117,12 @@
                 <button type='submit' class='btn btn-primary'><span class="fui-mail"></span> Send to JS Bin</button>
             </form>
         </div>
-        <div class="col-xs-4">
+        
+		<div class="col-xs-4">
             <form action="https://jsfiddle.net/api/post/library/pure/" method="POST" target="_blank" id='jsfiddle-form'>
                 <input type="hidden" name="html" value=''/>
                 <input type="hidden" name="css" value=''/>
+                <input type="hidden" name="js" value=''/>
                 <button type='submit' class='btn btn-primary'><span class="fui-mail"></span> Send to jsFiddle</button>
             </form>
         </div>
