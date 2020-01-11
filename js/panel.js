@@ -56,9 +56,25 @@
 	jsbinForm.on('submit', function () {
 		var htmlInput = jsbinForm.find('input[name=html]');
 		var cssInput = jsbinForm.find('input[name=css]');
+		var csrfToken = jsbinForm.find('input[name=_csrf]');
 
-		htmlInput.val(encodeURIComponent(htmlTextarea.val()));
-		cssInput.val(encodeURIComponent(cssTextarea.val()));
+		htmlInput.val(htmlTextarea.val());
+		cssInput.val(cssTextarea.val());
+		
+		if(!csrfToken.val()){
+			fetch("https://jsbin.com")
+				.then(e => e.text())
+				.then(e => {
+					let token = e.match(/name="_csrf" value="(.*?)"/)[1];
+					csrfToken.val(token);
+					
+					console.log(token);
+					
+					jsbinForm.find('[type=submit]').click();				
+				});
+			
+			e.preventDefault();
+		}
 	});
 
 	//Event listeners
