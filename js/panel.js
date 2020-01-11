@@ -16,6 +16,7 @@
 		codepenForm = $('#codepen-form'),
 		jsfiddleForm = $('#jsfiddle-form'),
 		jsbinForm = $('#jsbin-form'),
+		copyToClipboard = $('#copy-to-clipboard'),
 
 		propertiesCleanUpInput = $('#properties-clean-up'),
 		removeDefaultValuesInput = $('#remove-default-values'),
@@ -56,9 +57,27 @@
 	jsbinForm.on('submit', function () {
 		var htmlInput = jsbinForm.find('input[name=html]');
 		var cssInput = jsbinForm.find('input[name=css]');
+		var csrfToken = jsbinForm.find('input[name=_csrf]');
 
-		htmlInput.val(encodeURIComponent(htmlTextarea.val()));
-		cssInput.val(encodeURIComponent(cssTextarea.val()));
+		htmlInput.val(htmlTextarea.val());
+		cssInput.val(cssTextarea.val());
+		
+		if(!csrfToken.val()){
+			fetch("https://jsbin.com")
+				.then(e => e.text())
+				.then(e => {
+					let token = e.match(/name="_csrf" value="(.*?)"/)[1];
+					csrfToken.val(token);
+					jsbinForm.find('[type=submit]').click();				
+				});
+			
+			e.preventDefault();
+		}
+	});
+	
+	copyToClipboard.on('click', function () {
+		var text = htmlTextarea.val() + "\n\n\n" + cssTextarea.val();
+		navigator.clipboard.writeText(text);
 	});
 
 	//Event listeners

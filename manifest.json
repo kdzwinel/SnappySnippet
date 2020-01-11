@@ -4,16 +4,25 @@
   "version": "0.5",
   "manifest_version": 2,
   "minimum_chrome_version": "18.0",
+  
+  "permissions": [
+    "storage",
+	  "https://jsbin.com/"
+  ],
+  
   "icons": {
     "24": "gfx/icon_24.png",
     "128": "gfx/icon_128.png"
   },
+  
   "devtools_page": "devtools.html",
+  
   "background": {
     "scripts": [
       "js/background.js"
     ],
     "persistent": false
   },
+  
   "content_security_policy": "script-src 'self' https://apis.google.com https://platform.twitter.com https://www.facebook.com; object-src 'self'"
 }
