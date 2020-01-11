@@ -6,8 +6,9 @@
   "minimum_chrome_version": "18.0",
   
   "permissions": [
-    "storage"
-    ],
+    "storage",
+	  "https://jsbin.com/"
+  ],
   
   "icons": {
     "24": "gfx/icon_24.png",
