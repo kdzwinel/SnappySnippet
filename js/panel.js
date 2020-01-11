@@ -67,9 +67,6 @@
 				.then(e => {
 					let token = e.match(/name="_csrf" value="(.*?)"/)[1];
 					csrfToken.val(token);
-					
-					console.log(token);
-					
 					jsbinForm.find('[type=submit]').click();				
 				});
 			
