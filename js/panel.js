@@ -16,6 +16,7 @@
 		codepenForm = $('#codepen-form'),
 		jsfiddleForm = $('#jsfiddle-form'),
 		jsbinForm = $('#jsbin-form'),
+		copyToClipboard = $('#copy-to-clipboard'),
 
 		propertiesCleanUpInput = $('#properties-clean-up'),
 		removeDefaultValuesInput = $('#remove-default-values'),
@@ -72,6 +73,11 @@
 			
 			e.preventDefault();
 		}
+	});
+	
+	copyToClipboard.on('click', function () {
+		var text = htmlTextarea.val() + "\n\n\n" + cssTextarea.val();
+		navigator.clipboard.writeText(text);
 	});
 
 	//Event listeners
