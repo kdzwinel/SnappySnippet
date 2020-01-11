@@ -111,9 +111,15 @@
         </div>
 		
         <div class="col-xs-4">
-            <form action="https://jsbin.com/?html,css,output" method="POST" target="_blank" id='jsbin-form'>
+            <form action="https://jsbin.com/save" method="POST" target="_blank" id='jsbin-form'>
                 <input type="hidden" name="html" value=''/>
                 <input type="hidden" name="css" value=''/>
+				
+				<input type = "hidden" name = "method" value = "save">
+				<input type = "hidden" name = "checksum" value = "false">
+				
+				<input type = "hidden" name = "_csrf" value = ''>
+
                 <button type='submit' class='btn btn-primary'><span class="fui-mail"></span> Send to JS Bin</button>
             </form>
         </div>
