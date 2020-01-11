@@ -16,11 +16,7 @@
 	top: 5px;
 }
 
-#export-buttons-row div:first-child {
-	text-align: right;
-}
-
-#export-buttons-row div:nth-child(2) {
+#export-buttons-row div {
 	text-align: center;
 }
 
