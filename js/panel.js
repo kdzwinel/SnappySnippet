@@ -23,6 +23,7 @@
 		combineSameRulesInput = $('#combine-same-rules'),
 		fixHTMLIndentationInput = $('#fix-html-indentation'),
 		includeAncestors = $('#include-ancestors'),
+		embedCSS = $('#embed-css'),
 		idPrefix = $('#id-prefix'),
 
 		htmlTextarea = $('#html'),
@@ -221,6 +222,11 @@
 		}
 
 		styles = cssStringifier.process(styles);
+
+		if (embedCSS.is(':checked')) {
+			html = '<style type="text/css">\n' + styles + '</style>\n' + html;
+			styles = '';
+		}
 
 		if (isValidPrefix(idPrefix.val())) {
 			prefix = idPrefix.val();
